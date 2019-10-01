@@ -24,4 +24,24 @@ class Order extends Model implements Transformable
      */
     protected $fillable = [];
 
+    public function logs(){
+        return $this->hasMany('App\Entities\OrderLog', 'id_order');
+    }
+
+    public function status(){
+        return $this->belongTo('App\Entities\OrderStatus', 'id_status');
+    }
+
+    public function product(){
+        return $this->belongTo('App\Entities\Product', 'id_product');
+    }
+
+    public function customer(){
+        return $this->belongTo('App\Entities\User', 'id_user');
+    }
+
+    public function products(){
+        return $this->hasManyThrough('App\Entities\Product', 'App\Entities\OrderProduct', 'id_order', 'id_product');
+    }
+
 }

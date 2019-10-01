@@ -47,4 +47,19 @@ class User extends Model implements Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function level(){
+        return $this->belongTo('App\Entities\Level', 'id_level');
+    }
+
+    public function posts(){
+        return $this->hasMany('App\Entities\Post', 'id_author');
+    }
+
+    public function cart(){
+        return $this->hasMany('App\Entities\Cart', 'id_user');
+    }
+
+    public function orders(){
+        return $this->hasMany('App\Entities\Order', 'id_user');
+    }
 }

@@ -24,4 +24,12 @@ class Product extends Model implements Transformable
      */
     protected $fillable = [];
 
+    public function type(){
+        return $this->hasMany('App\Entities\ProductType', 'id_type');
+    }
+
+    public function orders(){
+        return $this->hasManyThrough('App\Entities\Order', 'App\Entities\OrderProduct', 'id_product', 'id_order');
+    }
+
 }

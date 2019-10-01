@@ -24,4 +24,12 @@ class Cart extends Model implements Transformable
      */
     protected $fillable = [];
 
+    public function product(){
+        return $this->belongTo('App\Entities\Product', 'id_product');
+    }
+
+    public function user(){
+        return $this->belongTo('App\Entities\User', 'id_user');
+    }
+
 }

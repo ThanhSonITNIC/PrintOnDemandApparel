@@ -24,4 +24,8 @@ class OrderLog extends Model implements Transformable
      */
     protected $fillable = [];
 
+    public function order(){
+        return $this->belongTo('App\Entities\Order', 'id_order');
+    }
+
 }
