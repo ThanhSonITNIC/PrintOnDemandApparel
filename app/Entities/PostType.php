@@ -23,7 +23,7 @@ class PostType extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = ['name'];
 
     public function posts(){
         return $this->hasMany('App\Entities\Post', 'id_type');

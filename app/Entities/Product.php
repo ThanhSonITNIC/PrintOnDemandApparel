@@ -22,7 +22,7 @@ class Product extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = ['name', 'images', 'price', 'quantity', 'description', 'colors', 'sizes', 'id_type', 'tags'];
 
     public function type(){
         return $this->hasMany('App\Entities\ProductType', 'id_type');

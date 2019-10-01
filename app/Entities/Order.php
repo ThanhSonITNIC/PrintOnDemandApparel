@@ -22,7 +22,7 @@ class Order extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = ['id_user', 'id_status', 'total', 'paid'];
 
     public function logs(){
         return $this->hasMany('App\Entities\OrderLog', 'id_order');

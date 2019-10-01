@@ -23,7 +23,7 @@ class Level extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = ['name'];
 
     public function users(){
         return $this->hasMany('App\Entities\User', 'id_level');

@@ -23,7 +23,7 @@ class OrderStatus extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = ['name'];
 
     public function orders(){
         return $this->hasMany('App\Entities\Order', 'id_status');

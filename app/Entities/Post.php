@@ -22,7 +22,7 @@ class Post extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = ['id_author', 'title', 'description', 'content', 'image', 'status', 'highlight', 'id_type', 'tags'];
 
     public function type(){
         return $this->belongTo('App\Entities\PostTypes', 'id_type');

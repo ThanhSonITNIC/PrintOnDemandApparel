@@ -22,7 +22,7 @@ class Cart extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = ['id_user', 'id_product', 'quantity', 'color', 'size', 'image', 'note'];
 
     public function product(){
         return $this->belongTo('App\Entities\Product', 'id_product');

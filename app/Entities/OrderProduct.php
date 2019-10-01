@@ -23,7 +23,7 @@ class OrderProduct extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = ['id_order', 'id_product', 'price', 'quantity', 'color', 'size', 'image', 'note'];
 
     public function product(){
         return $this->belongTo('App\Entities\Product', 'id_product');
