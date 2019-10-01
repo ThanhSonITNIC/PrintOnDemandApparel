@@ -1,41 +1,42 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use App\Http\Requests\OrderProductCreateRequest;
-use App\Http\Requests\OrderProductUpdateRequest;
-use App\Repositories\OrderProductRepository;
-use App\Validators\OrderProductValidator;
+use App\Http\Requests\UserCreateRequest;
+use App\Http\Requests\UserUpdateRequest;
+use App\Repositories\UserRepository;
+use App\Validators\UserValidator;
 
 /**
- * Class OrderProductsController.
+ * Class UsersController.
  *
- * @package namespace App\Http\Controllers;
+ * @package namespace App\Http\Controllers\Admin;
  */
-class OrderProductsController extends Controller
+class UsersController extends Controller
 {
     /**
-     * @var OrderProductRepository
+     * @var UserRepository
      */
     protected $repository;
 
     /**
-     * @var OrderProductValidator
+     * @var UserValidator
      */
     protected $validator;
 
     /**
-     * OrderProductsController constructor.
+     * UsersController constructor.
      *
-     * @param OrderProductRepository $repository
-     * @param OrderProductValidator $validator
+     * @param UserRepository $repository
+     * @param UserValidator $validator
      */
-    public function __construct(OrderProductRepository $repository, OrderProductValidator $validator)
+    public function __construct(UserRepository $repository, UserValidator $validator)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
@@ -49,38 +50,38 @@ class OrderProductsController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $orderProducts = $this->repository->all();
+        $users = $this->repository->all();
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $orderProducts,
+                'data' => $users,
             ]);
         }
 
-        return view('orderProducts.index', compact('orderProducts'));
+        return view('users.index', compact('users'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  OrderProductCreateRequest $request
+     * @param  UserCreateRequest $request
      *
      * @return \Illuminate\Http\Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(OrderProductCreateRequest $request)
+    public function store(UserCreateRequest $request)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            $orderProduct = $this->repository->create($request->all());
+            $user = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'OrderProduct created.',
-                'data'    => $orderProduct->toArray(),
+                'message' => 'User created.',
+                'data'    => $user->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -110,16 +111,16 @@ class OrderProductsController extends Controller
      */
     public function show($id)
     {
-        $orderProduct = $this->repository->find($id);
+        $user = $this->repository->find($id);
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $orderProduct,
+                'data' => $user,
             ]);
         }
 
-        return view('orderProducts.show', compact('orderProduct'));
+        return view('users.show', compact('user'));
     }
 
     /**
@@ -131,32 +132,32 @@ class OrderProductsController extends Controller
      */
     public function edit($id)
     {
-        $orderProduct = $this->repository->find($id);
+        $user = $this->repository->find($id);
 
-        return view('orderProducts.edit', compact('orderProduct'));
+        return view('users.edit', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  OrderProductUpdateRequest $request
+     * @param  UserUpdateRequest $request
      * @param  string            $id
      *
      * @return Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(OrderProductUpdateRequest $request, $id)
+    public function update(UserUpdateRequest $request, $id)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $orderProduct = $this->repository->update($request->all(), $id);
+            $user = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'OrderProduct updated.',
-                'data'    => $orderProduct->toArray(),
+                'message' => 'User updated.',
+                'data'    => $user->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -194,11 +195,11 @@ class OrderProductsController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'OrderProduct deleted.',
+                'message' => 'User deleted.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'OrderProduct deleted.');
+        return redirect()->back()->with('message', 'User deleted.');
     }
 }

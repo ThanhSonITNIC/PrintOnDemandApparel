@@ -1,41 +1,42 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use App\Http\Requests\CartCreateRequest;
-use App\Http\Requests\CartUpdateRequest;
-use App\Repositories\CartRepository;
-use App\Validators\CartValidator;
+use App\Http\Requests\OrderStatusCreateRequest;
+use App\Http\Requests\OrderStatusUpdateRequest;
+use App\Repositories\OrderStatusRepository;
+use App\Validators\OrderStatusValidator;
 
 /**
- * Class CartsController.
+ * Class OrderStatusesController.
  *
- * @package namespace App\Http\Controllers;
+ * @package namespace App\Http\Controllers\Admin;
  */
-class CartsController extends Controller
+class OrderStatusesController extends Controller
 {
     /**
-     * @var CartRepository
+     * @var OrderStatusRepository
      */
     protected $repository;
 
     /**
-     * @var CartValidator
+     * @var OrderStatusValidator
      */
     protected $validator;
 
     /**
-     * CartsController constructor.
+     * OrderStatusesController constructor.
      *
-     * @param CartRepository $repository
-     * @param CartValidator $validator
+     * @param OrderStatusRepository $repository
+     * @param OrderStatusValidator $validator
      */
-    public function __construct(CartRepository $repository, CartValidator $validator)
+    public function __construct(OrderStatusRepository $repository, OrderStatusValidator $validator)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
@@ -49,38 +50,38 @@ class CartsController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $carts = $this->repository->all();
+        $orderStatuses = $this->repository->all();
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $carts,
+                'data' => $orderStatuses,
             ]);
         }
 
-        return view('carts.index', compact('carts'));
+        return view('orderStatuses.index', compact('orderStatuses'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  CartCreateRequest $request
+     * @param  OrderStatusCreateRequest $request
      *
      * @return \Illuminate\Http\Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(CartCreateRequest $request)
+    public function store(OrderStatusCreateRequest $request)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            $cart = $this->repository->create($request->all());
+            $orderStatus = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'Cart created.',
-                'data'    => $cart->toArray(),
+                'message' => 'OrderStatus created.',
+                'data'    => $orderStatus->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -110,16 +111,16 @@ class CartsController extends Controller
      */
     public function show($id)
     {
-        $cart = $this->repository->find($id);
+        $orderStatus = $this->repository->find($id);
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $cart,
+                'data' => $orderStatus,
             ]);
         }
 
-        return view('carts.show', compact('cart'));
+        return view('orderStatuses.show', compact('orderStatus'));
     }
 
     /**
@@ -131,32 +132,32 @@ class CartsController extends Controller
      */
     public function edit($id)
     {
-        $cart = $this->repository->find($id);
+        $orderStatus = $this->repository->find($id);
 
-        return view('carts.edit', compact('cart'));
+        return view('orderStatuses.edit', compact('orderStatus'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  CartUpdateRequest $request
+     * @param  OrderStatusUpdateRequest $request
      * @param  string            $id
      *
      * @return Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(CartUpdateRequest $request, $id)
+    public function update(OrderStatusUpdateRequest $request, $id)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $cart = $this->repository->update($request->all(), $id);
+            $orderStatus = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'Cart updated.',
-                'data'    => $cart->toArray(),
+                'message' => 'OrderStatus updated.',
+                'data'    => $orderStatus->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -194,11 +195,11 @@ class CartsController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'Cart deleted.',
+                'message' => 'OrderStatus deleted.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'Cart deleted.');
+        return redirect()->back()->with('message', 'OrderStatus deleted.');
     }
 }

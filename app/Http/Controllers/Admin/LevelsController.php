@@ -1,41 +1,42 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use App\Http\Requests\ProductTypeCreateRequest;
-use App\Http\Requests\ProductTypeUpdateRequest;
-use App\Repositories\ProductTypeRepository;
-use App\Validators\ProductTypeValidator;
+use App\Http\Requests\LevelCreateRequest;
+use App\Http\Requests\LevelUpdateRequest;
+use App\Repositories\LevelRepository;
+use App\Validators\LevelValidator;
 
 /**
- * Class ProductTypesController.
+ * Class LevelsController.
  *
- * @package namespace App\Http\Controllers;
+ * @package namespace App\Http\Controllers\Admin;
  */
-class ProductTypesController extends Controller
+class LevelsController extends Controller
 {
     /**
-     * @var ProductTypeRepository
+     * @var LevelRepository
      */
     protected $repository;
 
     /**
-     * @var ProductTypeValidator
+     * @var LevelValidator
      */
     protected $validator;
 
     /**
-     * ProductTypesController constructor.
+     * LevelsController constructor.
      *
-     * @param ProductTypeRepository $repository
-     * @param ProductTypeValidator $validator
+     * @param LevelRepository $repository
+     * @param LevelValidator $validator
      */
-    public function __construct(ProductTypeRepository $repository, ProductTypeValidator $validator)
+    public function __construct(LevelRepository $repository, LevelValidator $validator)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
@@ -49,38 +50,38 @@ class ProductTypesController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $productTypes = $this->repository->all();
+        $levels = $this->repository->all();
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $productTypes,
+                'data' => $levels,
             ]);
         }
 
-        return view('productTypes.index', compact('productTypes'));
+        return view('levels.index', compact('levels'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  ProductTypeCreateRequest $request
+     * @param  LevelCreateRequest $request
      *
      * @return \Illuminate\Http\Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(ProductTypeCreateRequest $request)
+    public function store(LevelCreateRequest $request)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            $productType = $this->repository->create($request->all());
+            $level = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'ProductType created.',
-                'data'    => $productType->toArray(),
+                'message' => 'Level created.',
+                'data'    => $level->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -110,16 +111,16 @@ class ProductTypesController extends Controller
      */
     public function show($id)
     {
-        $productType = $this->repository->find($id);
+        $level = $this->repository->find($id);
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $productType,
+                'data' => $level,
             ]);
         }
 
-        return view('productTypes.show', compact('productType'));
+        return view('levels.show', compact('level'));
     }
 
     /**
@@ -131,32 +132,32 @@ class ProductTypesController extends Controller
      */
     public function edit($id)
     {
-        $productType = $this->repository->find($id);
+        $level = $this->repository->find($id);
 
-        return view('productTypes.edit', compact('productType'));
+        return view('levels.edit', compact('level'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  ProductTypeUpdateRequest $request
+     * @param  LevelUpdateRequest $request
      * @param  string            $id
      *
      * @return Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(ProductTypeUpdateRequest $request, $id)
+    public function update(LevelUpdateRequest $request, $id)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $productType = $this->repository->update($request->all(), $id);
+            $level = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'ProductType updated.',
-                'data'    => $productType->toArray(),
+                'message' => 'Level updated.',
+                'data'    => $level->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -194,11 +195,11 @@ class ProductTypesController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'ProductType deleted.',
+                'message' => 'Level deleted.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'ProductType deleted.');
+        return redirect()->back()->with('message', 'Level deleted.');
     }
 }

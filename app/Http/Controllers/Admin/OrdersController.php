@@ -1,41 +1,42 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use App\Http\Requests\PostTypeCreateRequest;
-use App\Http\Requests\PostTypeUpdateRequest;
-use App\Repositories\PostTypeRepository;
-use App\Validators\PostTypeValidator;
+use App\Http\Requests\OrderCreateRequest;
+use App\Http\Requests\OrderUpdateRequest;
+use App\Repositories\OrderRepository;
+use App\Validators\OrderValidator;
 
 /**
- * Class PostTypesController.
+ * Class OrdersController.
  *
- * @package namespace App\Http\Controllers;
+ * @package namespace App\Http\Controllers\Admin;
  */
-class PostTypesController extends Controller
+class OrdersController extends Controller
 {
     /**
-     * @var PostTypeRepository
+     * @var OrderRepository
      */
     protected $repository;
 
     /**
-     * @var PostTypeValidator
+     * @var OrderValidator
      */
     protected $validator;
 
     /**
-     * PostTypesController constructor.
+     * OrdersController constructor.
      *
-     * @param PostTypeRepository $repository
-     * @param PostTypeValidator $validator
+     * @param OrderRepository $repository
+     * @param OrderValidator $validator
      */
-    public function __construct(PostTypeRepository $repository, PostTypeValidator $validator)
+    public function __construct(OrderRepository $repository, OrderValidator $validator)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
@@ -49,38 +50,38 @@ class PostTypesController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $postTypes = $this->repository->all();
+        $orders = $this->repository->all();
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $postTypes,
+                'data' => $orders,
             ]);
         }
 
-        return view('postTypes.index', compact('postTypes'));
+        return view('orders.index', compact('orders'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  PostTypeCreateRequest $request
+     * @param  OrderCreateRequest $request
      *
      * @return \Illuminate\Http\Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(PostTypeCreateRequest $request)
+    public function store(OrderCreateRequest $request)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            $postType = $this->repository->create($request->all());
+            $order = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'PostType created.',
-                'data'    => $postType->toArray(),
+                'message' => 'Order created.',
+                'data'    => $order->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -110,16 +111,16 @@ class PostTypesController extends Controller
      */
     public function show($id)
     {
-        $postType = $this->repository->find($id);
+        $order = $this->repository->find($id);
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $postType,
+                'data' => $order,
             ]);
         }
 
-        return view('postTypes.show', compact('postType'));
+        return view('orders.show', compact('order'));
     }
 
     /**
@@ -131,32 +132,32 @@ class PostTypesController extends Controller
      */
     public function edit($id)
     {
-        $postType = $this->repository->find($id);
+        $order = $this->repository->find($id);
 
-        return view('postTypes.edit', compact('postType'));
+        return view('orders.edit', compact('order'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  PostTypeUpdateRequest $request
+     * @param  OrderUpdateRequest $request
      * @param  string            $id
      *
      * @return Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(PostTypeUpdateRequest $request, $id)
+    public function update(OrderUpdateRequest $request, $id)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $postType = $this->repository->update($request->all(), $id);
+            $order = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'PostType updated.',
-                'data'    => $postType->toArray(),
+                'message' => 'Order updated.',
+                'data'    => $order->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -194,11 +195,11 @@ class PostTypesController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'PostType deleted.',
+                'message' => 'Order deleted.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'PostType deleted.');
+        return redirect()->back()->with('message', 'Order deleted.');
     }
 }

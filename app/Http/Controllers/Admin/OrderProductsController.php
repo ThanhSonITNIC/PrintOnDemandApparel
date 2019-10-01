@@ -1,41 +1,42 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use App\Http\Requests\LevelCreateRequest;
-use App\Http\Requests\LevelUpdateRequest;
-use App\Repositories\LevelRepository;
-use App\Validators\LevelValidator;
+use App\Http\Requests\OrderProductCreateRequest;
+use App\Http\Requests\OrderProductUpdateRequest;
+use App\Repositories\OrderProductRepository;
+use App\Validators\OrderProductValidator;
 
 /**
- * Class LevelsController.
+ * Class OrderProductsController.
  *
- * @package namespace App\Http\Controllers;
+ * @package namespace App\Http\Controllers\Admin;
  */
-class LevelsController extends Controller
+class OrderProductsController extends Controller
 {
     /**
-     * @var LevelRepository
+     * @var OrderProductRepository
      */
     protected $repository;
 
     /**
-     * @var LevelValidator
+     * @var OrderProductValidator
      */
     protected $validator;
 
     /**
-     * LevelsController constructor.
+     * OrderProductsController constructor.
      *
-     * @param LevelRepository $repository
-     * @param LevelValidator $validator
+     * @param OrderProductRepository $repository
+     * @param OrderProductValidator $validator
      */
-    public function __construct(LevelRepository $repository, LevelValidator $validator)
+    public function __construct(OrderProductRepository $repository, OrderProductValidator $validator)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
@@ -49,38 +50,38 @@ class LevelsController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $levels = $this->repository->all();
+        $orderProducts = $this->repository->all();
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $levels,
+                'data' => $orderProducts,
             ]);
         }
 
-        return view('levels.index', compact('levels'));
+        return view('orderProducts.index', compact('orderProducts'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  LevelCreateRequest $request
+     * @param  OrderProductCreateRequest $request
      *
      * @return \Illuminate\Http\Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(LevelCreateRequest $request)
+    public function store(OrderProductCreateRequest $request)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            $level = $this->repository->create($request->all());
+            $orderProduct = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'Level created.',
-                'data'    => $level->toArray(),
+                'message' => 'OrderProduct created.',
+                'data'    => $orderProduct->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -110,16 +111,16 @@ class LevelsController extends Controller
      */
     public function show($id)
     {
-        $level = $this->repository->find($id);
+        $orderProduct = $this->repository->find($id);
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $level,
+                'data' => $orderProduct,
             ]);
         }
 
-        return view('levels.show', compact('level'));
+        return view('orderProducts.show', compact('orderProduct'));
     }
 
     /**
@@ -131,32 +132,32 @@ class LevelsController extends Controller
      */
     public function edit($id)
     {
-        $level = $this->repository->find($id);
+        $orderProduct = $this->repository->find($id);
 
-        return view('levels.edit', compact('level'));
+        return view('orderProducts.edit', compact('orderProduct'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  LevelUpdateRequest $request
+     * @param  OrderProductUpdateRequest $request
      * @param  string            $id
      *
      * @return Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(LevelUpdateRequest $request, $id)
+    public function update(OrderProductUpdateRequest $request, $id)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $level = $this->repository->update($request->all(), $id);
+            $orderProduct = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'Level updated.',
-                'data'    => $level->toArray(),
+                'message' => 'OrderProduct updated.',
+                'data'    => $orderProduct->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -194,11 +195,11 @@ class LevelsController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'Level deleted.',
+                'message' => 'OrderProduct deleted.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'Level deleted.');
+        return redirect()->back()->with('message', 'OrderProduct deleted.');
     }
 }
