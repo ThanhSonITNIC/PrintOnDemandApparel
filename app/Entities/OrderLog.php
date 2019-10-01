@@ -25,7 +25,7 @@ class OrderLog extends Model implements Transformable
     protected $fillable = ['content', 'id_order'];
 
     public function order(){
-        return $this->belongTo('App\Entities\Order', 'id_order');
+        return $this->belongsTo('App\Entities\Order', 'id_order');
     }
 
 }

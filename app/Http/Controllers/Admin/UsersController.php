@@ -59,7 +59,7 @@ class UsersController extends Controller
             ]);
         }
 
-        return view('users.index', compact('users'));
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -120,7 +120,7 @@ class UsersController extends Controller
             ]);
         }
 
-        return view('users.show', compact('user'));
+        return view('admin.users.show', compact('user'));
     }
 
     /**

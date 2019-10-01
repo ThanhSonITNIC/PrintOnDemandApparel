@@ -25,10 +25,10 @@ class Post extends Model implements Transformable
     protected $fillable = ['id_author', 'title', 'description', 'content', 'image', 'status', 'highlight', 'id_type', 'tags'];
 
     public function type(){
-        return $this->belongTo('App\Entities\PostTypes', 'id_type');
+        return $this->belongsTo('App\Entities\PostTypes', 'id_type');
     }
 
     public function author(){
-        return $this->belongTo('App\Entities\User', 'id_author');
+        return $this->belongsTo('App\Entities\User', 'id_author');
     }
 }

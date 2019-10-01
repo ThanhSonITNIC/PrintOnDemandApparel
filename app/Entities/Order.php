@@ -29,15 +29,15 @@ class Order extends Model implements Transformable
     }
 
     public function status(){
-        return $this->belongTo('App\Entities\OrderStatus', 'id_status');
+        return $this->belongsTo('App\Entities\OrderStatus', 'id_status');
     }
 
     public function product(){
-        return $this->belongTo('App\Entities\Product', 'id_product');
+        return $this->belongsTo('App\Entities\Product', 'id_product');
     }
 
     public function customer(){
-        return $this->belongTo('App\Entities\User', 'id_user');
+        return $this->belongsTo('App\Entities\User', 'id_user');
     }
 
     public function products(){

@@ -14,7 +14,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  *
  * @package namespace App\Entities;
  */
-class User extends Model implements Authenticatable
+class User extends Model implements Transformable
 {
     use TransformableTrait, Notifiable;
 
@@ -26,7 +26,7 @@ class User extends Model implements Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'tel', 'address', 'id_level', 'provider', 'id_provider'
+        'name', 'email', 'password', 'tel', 'address', 'id_level', 'status', 'provider', 'id_provider'
     ];
 
     /**
@@ -48,7 +48,7 @@ class User extends Model implements Authenticatable
     ];
 
     public function level(){
-        return $this->belongTo('App\Entities\Level', 'id_level');
+        return $this->belongsTo('App\Entities\Level', 'id_level');
     }
 
     public function posts(){

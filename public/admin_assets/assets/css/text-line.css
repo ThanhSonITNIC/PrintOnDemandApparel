@@ -1,0 +1,44 @@
+.text-line{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;  
+}
+
+.text-line-1{
+    -webkit-line-clamp: 1;
+}
+
+.text-line-2{
+    -webkit-line-clamp: 2;
+}
+
+.text-line-3{
+    -webkit-line-clamp: 3;
+}
+
+.text-line-4{
+    -webkit-line-clamp: 4;
+}
+
+.text-line-5{
+    -webkit-line-clamp: 5;
+}
+
+.text-line-6{
+    -webkit-line-clamp: 6;
+}
+
+.text-line-7{
+    -webkit-line-clamp: 7;
+}
+
+.text-line-8{
+    -webkit-line-clamp: 8;
+}
+
+.text-line-9{
+    -webkit-line-clamp: 9;
+}
+
+.text-line-10{
+    -webkit-line-clamp: 10;
+}

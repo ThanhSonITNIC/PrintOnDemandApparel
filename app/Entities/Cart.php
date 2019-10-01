@@ -25,11 +25,11 @@ class Cart extends Model implements Transformable
     protected $fillable = ['id_user', 'id_product', 'quantity', 'color', 'size', 'image', 'note'];
 
     public function product(){
-        return $this->belongTo('App\Entities\Product', 'id_product');
+        return $this->belongsTo('App\Entities\Product', 'id_product');
     }
 
     public function user(){
-        return $this->belongTo('App\Entities\User', 'id_user');
+        return $this->belongsTo('App\Entities\User', 'id_user');
     }
 
 }

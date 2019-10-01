@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('tel')->nullable();
             $table->string('address')->nullable();
             $table->unsignedInteger('id_level');
+            $table->integer('status')->default(1);
             $table->string('provider')->nullable();
             $table->string('id_provider')->nullable();
             $table->rememberToken();
