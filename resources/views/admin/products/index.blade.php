@@ -10,7 +10,7 @@
         ['value' => 'name', 'display' => 'Name'],
         ['value' => 'price', 'display' => 'Price'],
         ['value' => 'quantity', 'display' => 'Quantity'],
-        ['value' => 'type', 'display' => 'Type'],
+        ['value' => 'type.name', 'display' => 'Type'],
     ];
 @endphp
 @include('admin.layouts.search.index', $searchFields)
@@ -48,7 +48,7 @@
                                     <td class='text-nowrap'>{{$product->name}}</td>
                                     <td>{{$product->price}}</td>
                                     <td>{{$product->quantity}}</td>
-                                    <td class='text-nowrap'>{{$product->type}}</td>
+                                    <td class='text-nowrap'>{{$product->type->name}}</td>
                                 </tr>
                             @endforeach
                         </tbody>

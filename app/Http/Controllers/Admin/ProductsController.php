@@ -120,7 +120,7 @@ class ProductsController extends Controller
             ]);
         }
 
-        return view('products.show', compact('product'));
+        return view('admin.products.show', compact('product'));
     }
 
     /**

@@ -25,7 +25,7 @@ class Product extends Model implements Transformable
     protected $fillable = ['name', 'images', 'price', 'quantity', 'description', 'colors', 'sizes', 'id_type', 'tags'];
 
     public function type(){
-        return $this->hasMany('App\Entities\ProductType', 'id_type');
+        return $this->belongsTo('App\Entities\ProductType', 'id_type');
     }
 
     public function orders(){
