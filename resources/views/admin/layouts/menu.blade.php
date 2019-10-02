@@ -20,13 +20,13 @@
                     </li>
                 </ul>
             </li>
-            <li class=" nav-item"><a href="/admin/apparels"><i class="icon-tshirt"></i><span data-i18n="nav.cards.main" class="menu-title">Apparels</span></a>
+            <li class=" nav-item"><a href="/admin/products"><i class="icon-tshirt"></i><span data-i18n="nav.cards.main" class="menu-title">Apparels</span></a>
                 <ul class="menu-content">
                     <li>
-                        <a href="/admin/apparels" data-i18n="nav.cards.card_bootstrap" class="menu-item">List</a>
+                        <a href="/admin/products" data-i18n="nav.cards.card_bootstrap" class="menu-item">List</a>
                     </li>
                     <li>
-                        <a href="/admin/apparels/1" data-i18n="nav.cards.card_actions" class="menu-item">Show</a>
+                        <a href="/admin/products/1" data-i18n="nav.cards.card_actions" class="menu-item">Show</a>
                     </li>
                 </ul>
             </li>

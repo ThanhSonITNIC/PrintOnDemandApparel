@@ -19,5 +19,6 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function(){
     Route::get('', 'Dashboard@index');
 
     Route::resource('users', 'UsersController');
+    Route::resource('products', 'ProductsController');
 });
 
