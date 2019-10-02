@@ -15,6 +15,14 @@ use App\Validators\OrderValidator;
  */
 class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
 {
+    protected $fieldSearchable = [
+        'id' => '=',
+        'customer.name' => 'like',
+        'status.name' => 'like',
+        'total' => '=',
+        'paid' => '=',
+    ];
+
     /**
      * Specify Model class name
      *

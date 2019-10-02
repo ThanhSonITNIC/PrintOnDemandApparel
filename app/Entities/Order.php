@@ -32,16 +32,13 @@ class Order extends Model implements Transformable
         return $this->belongsTo('App\Entities\OrderStatus', 'id_status');
     }
 
-    public function product(){
-        return $this->belongsTo('App\Entities\Product', 'id_product');
-    }
-
     public function customer(){
         return $this->belongsTo('App\Entities\User', 'id_user');
     }
 
     public function products(){
-        return $this->hasManyThrough('App\Entities\Product', 'App\Entities\OrderProduct', 'id_order', 'id_product');
+        // return $this->belongsToMany('App\Entities\Product', 'App\Entities\OrderProduct', 'id_order', 'id_product');
+        return $this->hasMany('App\Entities\OrderProduct', 'id_order');
     }
 
 }

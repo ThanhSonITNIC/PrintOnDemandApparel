@@ -59,7 +59,7 @@ class OrdersController extends Controller
             ]);
         }
 
-        return view('orders.index', compact('orders'));
+        return view('admin.orders.index', compact('orders'));
     }
 
     /**
@@ -120,7 +120,7 @@ class OrdersController extends Controller
             ]);
         }
 
-        return view('orders.show', compact('order'));
+        return view('admin.orders.show', compact('order'));
     }
 
     /**

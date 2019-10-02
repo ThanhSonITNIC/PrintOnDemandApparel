@@ -20,5 +20,6 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function(){
 
     Route::resource('users', 'UsersController');
     Route::resource('products', 'ProductsController');
+    Route::resource('orders', 'OrdersController');
 });
 
