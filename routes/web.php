@@ -15,11 +15,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function(){
-    Route::get('', 'Dashboard@index');
+Route::get('password/reset/{token}', 'Admin\Auth\ResetPasswordController@showResetForm')->name('password.reset');
 
-    Route::resource('users', 'UsersController');
-    Route::resource('products', 'ProductsController');
-    Route::resource('orders', 'OrdersController');
+Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function(){
+    
+    Auth::routes();
+    Route::post('admin/login', 'Auth\LoginController@login')->name('login');
+
+    Route::prefix('')->middleware(['auth', 'access.levels:1'])->group(function(){
+        Route::get('', 'Dashboard@index');
+
+        Route::resource('users', 'UsersController');
+        Route::resource('products', 'ProductsController');
+        Route::resource('orders', 'OrdersController');
+        Route::resource('posts', 'PostsController');
+    });
+
 });
 

@@ -5,6 +5,8 @@ namespace App\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
+use Illuminate\Contracts\Auth\CanResetPassword;
+use Illuminate\Auth\Passwords\CanResetPassword as CanResetPasswordTrait;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -14,9 +16,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  *
  * @package namespace App\Entities;
  */
-class User extends Model implements Transformable
+class User extends Authenticatable implements Transformable, MustVerifyEmail, CanResetPassword
 {
-    use TransformableTrait, Notifiable;
+    use TransformableTrait, Notifiable, CanResetPasswordTrait;
 
     protected $table = 'users';
 
@@ -62,4 +64,5 @@ class User extends Model implements Transformable
     public function orders(){
         return $this->hasMany('App\Entities\Order', 'id_user');
     }
+
 }

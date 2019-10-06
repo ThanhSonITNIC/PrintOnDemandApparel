@@ -59,7 +59,7 @@ class PostsController extends Controller
             ]);
         }
 
-        return view('posts.index', compact('posts'));
+        return view('admin.posts.index', compact('posts'));
     }
 
     /**
@@ -120,7 +120,7 @@ class PostsController extends Controller
             ]);
         }
 
-        return view('posts.show', compact('post'));
+        return view('admin.posts.show', compact('post'));
     }
 
     /**
