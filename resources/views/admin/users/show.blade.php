@@ -73,11 +73,9 @@
                                         <div class="form-group">
                                             <label>@lang('Level')</label>
                                             <select class="form-control" name="id_level">
-                                                {{-- @foreach ($m_levels as $level)
+                                                @foreach ($levels as $level)
                                                     <option value="{{$level->id}}" @if($level->id == $user->id_level) selected @endif>{{$level->name}}</option>
-                                                @endforeach --}}
-                                                <option>xxx</option>
-                                                <option>xxx</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>

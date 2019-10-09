@@ -65,4 +65,11 @@ class User extends Authenticatable implements Transformable, MustVerifyEmail, Ca
         return $this->hasMany('App\Entities\Order', 'id_user');
     }
 
+    public function isAdmin(){
+        return $this->id_level == 1;
+    }
+
+    public function isCustomer(){
+        return $this->id_level == 2;
+    }
 }
