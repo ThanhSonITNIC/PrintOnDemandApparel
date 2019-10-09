@@ -11,6 +11,7 @@
         ['value' => 'tel', 'display' => 'Telephone'],
         ['value' => 'address', 'display' => 'Address'],
         ['value' => 'status', 'display' => 'Status'],
+        ['value' => 'level.name', 'display' => 'Level'],
     ];
 @endphp
 @include('admin.layouts.search.index', $searchFields)
@@ -40,6 +41,7 @@
                                 <th>Telephone</th>
                                 <th>Address</th>
                                 <th>Status</th>
+                                <th>Level</th>
                             </tr>
                         </thead>
                         <tbody id='result'>
@@ -51,6 +53,7 @@
                                     <td>{{$user->tel}}</td>
                                     <td class='text-nowrap'>{{$user->address}}</td>
                                     <td>{{$user->status}}</td>
+                                    <td>{{$user->level->name}}</td>
                                 </tr>
                             @endforeach
                         </tbody>

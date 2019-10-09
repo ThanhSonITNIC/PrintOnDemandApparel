@@ -22,6 +22,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         'address' => 'like',
         'level.name' => 'like',
         'status' => '=',
+        'level.name' => 'like'
     ];
 
     /**
