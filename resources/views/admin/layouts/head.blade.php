@@ -32,6 +32,9 @@
 <link rel="stylesheet" type="text/css" href="app-assets/css/core/menu/menu-types/vertical-overlay-menu.css">
 <link rel="stylesheet" type="text/css" href="app-assets/css/core/colors/palette-gradient.css">
 <!-- END Page Level CSS-->
+
+<link rel="stylesheet" type="text/css" href="assets/css/bootstrap-tagsinput.css">
+
 @yield('link')
 <!-- BEGIN Custom CSS-->
 <link rel="stylesheet" type="text/css" href="assets/css/text-line.css">

@@ -9,40 +9,25 @@
         <div class="col-md-12">
             <div class="card" style="height: 100%">
                 <div class="card-header">
-                    <h4 class="card-title" id="basic-layout-form">{{$product->id}}</h4>
+                    <h4 class="card-title" id="basic-layout-form">Create</h4>
                     <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
-                    <div class="heading-elements">
-                        <ul class="list-inline mb-0">
-                            <li>
-                                <form action="{{route('admin.products.destroy', $product->id)}}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn-link" type="submit"><i class="icon-trash"></i></button>
-                                </form>
-                            </li>
-                            <li><a data-action="collapse"><i class="icon-minus4"></i></a></li>
-                            <li><a data-action="expand"><i class="icon-expand2"></i></a></li>
-                            <li><a data-action="close"><i class="icon-cross2"></i></a></li>
-                        </ul>
-                    </div>
                 </div>
                 <div class="card-body collapse in">
                     <div class="card-block">
-                        <form class="form" method="POST" action="{{route('admin.products.update', $product->id)}}" enctype="multipart/form-data">
+                        <form class="form" method="POST" action="{{route('admin.products.store')}}" enctype="multipart/form-data">
                             @csrf
-                            @method('PUT')
                             <div class="form-body">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>@lang('ID')</label>
-                                            <input type="text" class="form-control" name="id" value="{{$product->id}}" required>
+                                            <input type="text" class="form-control" name="id" value="{{old('id')}}" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>@lang('Name')</label>
-                                            <input type="text" class="form-control" name="name" value="{{$product->name}}" required>
+                                            <input type="text" class="form-control" name="name" value="{{old('name')}}" required>
                                         </div>
                                     </div>
                                 </div>
@@ -51,14 +36,14 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>@lang('Price')</label>
-                                            <input type="text" class="form-control" name="price" min="0" value="{{$product->price}}" required>
+                                            <input type="number" class="form-control" name="price" min="0" value="{{old('price')}}" required>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>@lang('Quantity')</label>
-                                            <input type="number" min=0 class="form-control" name="quantity" value="{{$product->quantity}}" required>
+                                            <input type="number" min=0 class="form-control" name="quantity" value="{{old('quantity')}}" required>
                                         </div>
                                     </div>
                                 </div>
@@ -69,7 +54,7 @@
                                             <label>@lang('Highlight')</label>
                                             <div class="form-control">
                                                 <label class="custom-control custom-checkbox mb-0">
-                                                    <input type="checkbox" class="custom-control-input" name="highlight" @if($product->highlight) checked @endif>
+                                                    <input type="checkbox" class="custom-control-input" name="highlight">
                                                     <span class="custom-control-indicator"></span>
                                                     <span class="custom-control-description"></span>
                                                 </label>
@@ -89,44 +74,39 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-10">
+                                    <div class="col-md-12">
                                         <div class="form-group">
                                             <label>@lang('Description')</label>
-                                            <textarea rows="5" class="form-control" name="description">{{$product->description}}</textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label>@lang('Image')</label>
-                                            <a href="{{asset(!isset(json_decode($product->images)->link) ?: json_decode($product->images)->link)}}" target="_blank"><img class="img-fluid form-control" style="height:100px" src="{{asset(!isset(json_decode($product->images)->watermark) ?: json_decode($product->images)->watermark)}}"></a>
+                                            <textarea rows="5" class="form-control" name="description">{{old('description')}}</textarea>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label>@lang('Colors')</label>
-                                            <input type="text" class="form-control" name="colors" value="{{$product->colors}}" data-role="tagsinput">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>@lang('Colors')</label>
+                                                <input type="text" class="form-control" name="colors" value="{{old('colors')}}" data-role="tagsinput">
+                                            </div>
+                                        </div>
+    
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>@lang('Sizes')</label>
+                                                <input type="text" class="form-control" name="sizes" value="{{old('sizes')}}" data-role="tagsinput">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>@lang('Type')</label>
+                                                <select name="id_type" class="form-control">
+                                                    @foreach ($productTypes as $type)
+                                                        <option value="{{$type->id}}">{{$type->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label>@lang('Sizes')</label>
-                                            <input type="text" class="form-control" name="sizes" value="{{$product->sizes}}" data-role="tagsinput">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label>@lang('Type')</label>
-                                            <select name="id_type" class="form-control">
-                                                @foreach ($productTypes as $type)
-                                                    <option value="{{$type->id}}" @if($product->id_type == $type->id) selected @endif>{{$type->name}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
 
                             <div class="form-actions right">

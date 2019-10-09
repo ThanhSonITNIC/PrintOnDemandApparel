@@ -59,6 +59,7 @@
         <div class="text-xs-right">
             {{-- {{ $products->links() }} --}}
         </div>
+        <a href="{{route('admin.products.create')}}" class="btn btn-primary">@lang('Create')</a>
     </div>
 </div>
 <!-- product Tables end -->    

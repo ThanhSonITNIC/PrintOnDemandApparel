@@ -343,3 +343,7 @@ button.delete {
 .form-search .position-relative button.form-control {
     cursor: pointer;
 }
+
+.tag.label.label-info{
+    background-color: rgb(178, 155, 219);
+}

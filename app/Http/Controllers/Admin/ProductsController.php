@@ -12,6 +12,7 @@ use App\Http\Requests\ProductCreateRequest;
 use App\Http\Requests\ProductUpdateRequest;
 use App\Repositories\ProductRepository;
 use App\Validators\ProductValidator;
+use App\Classes\Files\ImageProductUpload;
 
 /**
  * Class ProductsController.
@@ -77,6 +78,15 @@ class ProductsController extends Controller
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
+            //catch image
+            if($request->hasFile('image')){
+                // upload
+                $image = (new ImageProductUpload())->upload($request->file()['image']);
+                
+                // update request
+                $request->request->add(['images' => $image]);
+            }
+            
             $product = $this->repository->create($request->all());
 
             $response = [
@@ -89,7 +99,7 @@ class ProductsController extends Controller
                 return response()->json($response);
             }
 
-            return redirect()->back()->with('message', $response['message']);
+            return redirect(route('admin.products.show', $product->id))->with('message', $response['message']);
         } catch (ValidatorException $e) {
             if ($request->wantsJson()) {
                 return response()->json([
@@ -137,6 +147,16 @@ class ProductsController extends Controller
         return view('products.edit', compact('product'));
     }
 
+    
+    /**
+     * Show the form for creating a new resource.
+     * @return \Illuminate\Http\Response 
+     */
+    public function create()
+    {
+        return view('admin.products.create');
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -150,8 +170,22 @@ class ProductsController extends Controller
     public function update(ProductUpdateRequest $request, $id)
     {
         try {
+            // update request
+            if($request->has('highlight')){
+                $request->request->add(['highlight' => true]);
+            }
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
+
+            //catch image
+            if($request->hasFile('image')){
+                // upload
+                $product = $this->repository->find($id);
+                $image = (new ImageProductUpload($product))->upload($request->file()['image']);
+                
+                // update request
+                $request->request->add(['images' => $image]);
+            }
 
             $product = $this->repository->update($request->all(), $id);
 
@@ -200,6 +234,6 @@ class ProductsController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('message', 'Product deleted.');
+        return redirect(route('admin.products.index'))->with('message', 'Product deleted.');
     }
 }

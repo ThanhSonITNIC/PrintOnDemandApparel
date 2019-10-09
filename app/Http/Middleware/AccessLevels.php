@@ -6,17 +6,21 @@ use Closure;
 use Auth;
 use View;
 use App\Repositories\LevelRepository;
+use App\Repositories\ProductTypeRepository;
 
 class AccessLevels
 {
     protected $levelRepository;
 
     public function __construct(
-        LevelRepository $levelRepository
+        LevelRepository $levelRepository,
+        ProductTypeRepository $productTypeRepository
     ){
         $this->levelRepository = $levelRepository;
+        $this->productTypeRepository = $productTypeRepository;
 
         $this->levelRepository->popCriteria(RequestCriteria::class);
+        $this->productTypeRepository->popCriteria(RequestCriteria::class);
     }
 
     /**
@@ -34,6 +38,7 @@ class AccessLevels
 
         if(Auth::user()->isAdmin()){
             View::share('levels', $this->levelRepository->all());
+            View::share('productTypes', $this->productTypeRepository->all());
         }
 
         if(Auth::user()->isCustomer()){

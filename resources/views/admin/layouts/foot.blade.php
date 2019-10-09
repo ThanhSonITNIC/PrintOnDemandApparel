@@ -20,4 +20,7 @@
 <script src="app-assets/js/scripts/pages/dashboard-lite.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL JS-->
 
+<script src="assets/js/bootstrap-tagsinput.min.js" type="text/javascript"></script>
+<script src="assets/js/bootstrap-tagsinput/bootstrap-tagsinput-angular.min.js" type="text/javascript"></script>
+
 <script src="assets/js/scripts.js" type="text/javascript"></script>
