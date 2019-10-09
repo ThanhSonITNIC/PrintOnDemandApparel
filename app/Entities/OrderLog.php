@@ -28,4 +28,8 @@ class OrderLog extends Model implements Transformable
         return $this->belongsTo('App\Entities\Order', 'id_order');
     }
 
+    public function user(){
+        return $this->belongsTo('App\Entities\User', 'id_user');
+    }
+
 }

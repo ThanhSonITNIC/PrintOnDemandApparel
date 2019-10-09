@@ -21,6 +21,5 @@
 <!-- END PAGE LEVEL JS-->
 
 <script src="assets/js/bootstrap-tagsinput.min.js" type="text/javascript"></script>
-<script src="assets/js/bootstrap-tagsinput/bootstrap-tagsinput-angular.min.js" type="text/javascript"></script>
 
 <script src="assets/js/scripts.js" type="text/javascript"></script>

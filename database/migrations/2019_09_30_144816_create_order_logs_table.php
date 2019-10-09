@@ -19,7 +19,11 @@ class CreateOrderLogsTable extends Migration
             $table->increments('id');
 			$table->string('content');
 			$table->unsignedInteger('id_order');
-            $table->timestamps();
+			$table->unsignedInteger('id_user');
+			$table->timestamps();
+			
+			$table->foreign('id_order')->references('id')->on('orders')->onUpdate('cascade')->onDelete('cascade');
+			$table->foreign('id_user')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
 		});
 	}
 

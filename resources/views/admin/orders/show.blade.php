@@ -7,44 +7,62 @@
 <!-- Info -->
 <div class="row">
     <div class="col-xs-12">
-        <div class="card">
-            <div class="card-body collapse in">
-                <div class="table-responsive">
-                    <table class="table table-bordered cursor-hand mb-0">
-                        <thead>
-                            <tr>
-                                <th>@lang('ID')</th>
-                                <th>@lang('Customer')</th>
-                                <th>@lang('Total')</th>
-                                <th class="text-nowrap">@lang('Created at')</th>
-                                <th>@lang('Status')</th>
-                                <th class="text-nowrap">@lang('To step')</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{{$order->id}}</td>
-                                <td><a href="{{route('admin.users.show', $order->customer->id)}}">{{$order->customer->name}}</a></td>
-                                <td>{{$order->total}}</td>
-                                <td class="text-nowrap">{{$order->created_at}}</td>
-                                <td>{{$order->status->name}}</td>
-                                <td>
-                                    <form name="to-step" action="{{route('admin.orders.update', $order->id)}}" method="post">
-                                        @csrf
-                                        @method('PUT')
-                                        <select id='status' name='id_status' class="form-control form-control-sm input-sm">
-                                            {{-- @foreach ($order->type->status as $status)
-                                                <option value="{{$status->id}}" @if($status->id == $order->id_status) selected @endif>{{$status->name}}</option>
-                                            @endforeach --}}
-                                        </select>
-                                    </form>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+        <form action="{{route('admin.orders.update', $order->id)}}" method="post">
+            @csrf
+            @method("PUT")
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">@lang('Order')</h4>
+                    <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                    <div class="heading-elements">
+                        <ul class="list-inline mb-0">
+                            <li><button type="submit" class="btn-link"><i class="icon-check"></i></button></li>
+                            <li><a data-action="collapse"><i class="icon-minus4"></i></a></li>
+                            <li><a data-action="expand"><i class="icon-expand2"></i></a></li>
+                            <li><a data-action="close"><i class="icon-cross2"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-body collapse in">
+                    <div class="table-responsive">
+                        <table class="table table-bordered cursor-hand mb-0">
+                            <thead>
+                                <tr>
+                                    <th>@lang('ID')</th>
+                                    <th>@lang('Customer')</th>
+                                    <th>@lang('Paid')</th>
+                                    <th>@lang('Total')</th>
+                                    <th class="text-nowrap">@lang('Created at')</th>
+                                    <th>@lang('Status')</th>
+                                    <th class="text-nowrap">@lang('To step')</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{$order->id}}</td>
+                                    <td><a href="{{route('admin.users.show', $order->customer->id)}}">{{$order->customer->name}}</a></td>
+                                    <td><input type="number" min=0 max="{{$order->total}}" class="form-control" name="paid" value="{{$order->paid}}"></td>
+                                    <td>{{$order->total}}</td>
+                                    <td class="text-nowrap">{{$order->created_at}}</td>
+                                    <td>{{$order->status->name}}</td>
+                                    <td>
+                                        <form name="to-step" action="{{route('admin.orders.update', $order->id)}}" method="post">
+                                            @csrf
+                                            @method('PUT')
+                                            <select id='status' name='id_status' class="form-control form-control-sm input-sm">
+                                                @foreach ($orderStatus as $status)
+                                                    <option value="{{$status->id}}" @if($status->id == $order->id_status) selected @endif>{{$status->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 <!-- Info end --> 
@@ -96,7 +114,7 @@
                                                 </button>
                                                 <label class="modal-title text-text-bold-600">{{$product->product->name}}</label>
                                             </div>
-                                            <form action="" method="POST">
+                                            <form action="{{route('admin.order-products.update', $product->id)}}" method="POST">
                                                 @csrf
                                                 @method('PUT')
                                                 <input type="hidden" name="id_order" value="{{$order->id}}">
@@ -140,7 +158,7 @@
 </div>
 <!-- Products end -->    
 
-{{-- 
+
 <!-- Log -->
 <div class="row">
     <div class="col-xs-12">
@@ -161,20 +179,16 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th class="text-nowrap">@lang('ID status')</th>
-                                <th>@lang('Amount')</th>
-                                <th class="text-nowrap">@lang('By')</th>
+                                <th>@lang('By')</th>
+                                <th class="text-nowrap">@lang('Content')</th>
                                 <th class="text-nowrap">@lang('At')</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($order->logs as $index=>$log)
+                            @foreach ($order->logs as $log)
                                 <tr>
-                                    <th scope="row">{{$index+1}}</th>
-                                    <td class="text-nowrap">{{$log->id_status}}</td>
-                                    <td>{{$log->amount}}</td>
-                                    <td class="text-nowrap">{{$log->updated_by}}</td>
+                                    <td class="text-nowrap">{{$log->user->name}}</td>
+                                    <td>{{$log->content}}</td>
                                     <td class="text-nowrap">{{$log->created_at}}</td>
                                 </tr>
                             @endforeach
@@ -185,6 +199,6 @@
         </div>
     </div>
 </div>
-<!-- Log end -->    --}}
+<!-- Log end -->   
 
 @endsection
