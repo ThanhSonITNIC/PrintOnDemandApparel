@@ -12,6 +12,8 @@ use App\Http\Requests\PostCreateRequest;
 use App\Http\Requests\PostUpdateRequest;
 use App\Repositories\PostRepository;
 use App\Validators\PostValidator;
+use App\Classes\Files\ImagePostUpload;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class PostsController.
@@ -74,8 +76,20 @@ class PostsController extends Controller
     public function store(PostCreateRequest $request)
     {
         try {
+            // update request
+            $request->request->add(['highlight' => $request->exists('highlight') ? true : false]);
+            $request->request->add(['id_author' => Auth::user()->id]);
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
+
+            //catch image
+            if($request->hasFile('u_image')){
+                // upload
+                $image = (new ImagePostUpload())->upload($request->file()['u_image']);
+                
+                // update request
+                $request->request->add(['image' => $image]);
+            }
 
             $post = $this->repository->create($request->all());
 
@@ -89,7 +103,7 @@ class PostsController extends Controller
                 return response()->json($response);
             }
 
-            return redirect()->back()->with('message', $response['message']);
+            return redirect(route('admin.posts.show', $post->id))->with('message', $response['message']);
         } catch (ValidatorException $e) {
             if ($request->wantsJson()) {
                 return response()->json([
@@ -100,6 +114,10 @@ class PostsController extends Controller
 
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
+    }
+
+    public function create(){
+        return view('admin.posts.create');
     }
 
     /**
@@ -150,8 +168,20 @@ class PostsController extends Controller
     public function update(PostUpdateRequest $request, $id)
     {
         try {
+            // update request
+            $request->request->add(['highlight' => $request->exists('highlight') ? true : false]);
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
+
+            //catch image
+            if($request->hasFile('u_image')){
+                // upload
+                $post = $this->repository->find($id);
+                $image = (new ImagePostUpload($post))->upload($request->file()['u_image']);
+                
+                // update request
+                $request->request->add(['image' => $image]);
+            }      
 
             $post = $this->repository->update($request->all(), $id);
 
@@ -200,6 +230,6 @@ class PostsController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('message', 'Post deleted.');
+        return redirect(route('admin.posts.index'))->with('message', 'Post deleted.');
     }
 }

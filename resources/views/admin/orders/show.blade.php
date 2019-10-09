@@ -50,7 +50,7 @@
                                             @csrf
                                             @method('PUT')
                                             <select id='status' name='id_status' class="form-control form-control-sm input-sm">
-                                                @foreach ($orderStatus as $status)
+                                                @foreach ($orderStatuses as $status)
                                                     <option value="{{$status->id}}" @if($status->id == $order->id_status) selected @endif>{{$status->name}}</option>
                                                 @endforeach
                                             </select>

@@ -12,13 +12,6 @@
                 <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
                 <div class="heading-elements">
                     <ul class="list-inline mb-0">
-                        <li>
-                            <form action="{{route('admin.posts.destroy', $post->id)}}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn-link" type="submit"><i class="icon-trash"></i></button>
-                            </form>
-                        </li>
                         <li><a data-action="collapse"><i class="icon-minus4"></i></a></li>
                         <li><a data-action="expand"><i class="icon-expand2"></i></a></li>
                         <li><a data-action="close"><i class="icon-cross2"></i></a></li>
@@ -27,13 +20,12 @@
             </div>
             <div class="card-body collapse in">
                 <div class="card-block">
-                    <form class="form" method="POST" action="{{route('admin.posts.update', $post->id)}}" enctype="multipart/form-data">
+                    <form class="form" method="POST" action="{{route('admin.posts.store')}}" enctype="multipart/form-data">
                         @csrf
-                        @method("PUT")
                         <div class="form-body">
                             <div class="form-group">
                                 <label>@lang('Title')</label>
-                                <input class="form-control" type="text" name="title" value="{{$post->title}}">
+                                <input class="form-control" type="text" name="title" value="{{old('title')}}">
                             </div>
                             <div class="form-group">
                                 <label>@lang('Image') </label>
@@ -45,16 +37,10 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-10">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label>@lang('Description')</label>
-                                        <textarea rows="5" class="form-control" name="description">{{$post->description}}</textarea>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label>@lang('Image')</label>
-                                        <a href="{{asset(!isset(json_decode($post->image)->link) ?: json_decode($post->image)->link)}}" target="_blank"><img class="img-fluid form-control" style="height:100px" src="{{asset(!isset(json_decode($post->image)->watermark) ?: json_decode($post->image)->watermark)}}" alt="image"></a>
+                                        <textarea rows="5" class="form-control" name="description">{{old('desciption')}}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -62,14 +48,14 @@
                             <div class="form-group">
                                 <label>@lang('Content')</label>
                                 <textarea name="content" id="editor">
-                                    {{$post->content}}
+                                    {{old('content')}}
                                 </textarea>
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>@lang('Tags')</label>
-                                        <input type="text" class="form-control tags" name="tags" data-role="tagsinput" value="{{$post->tags}}">
+                                        <input type="text" class="form-control tags" name="tags" data-role="tagsinput">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -77,7 +63,7 @@
                                         <label>@lang('Type')</label>
                                         <select name="id_type" class="form-control">
                                             @foreach ($postTypes as $type)
-                                                <option value="{{$type->id}}" @if($type->id == $post->id_type) selected @endif>{{$type->name}}</option>
+                                                <option value="{{$type->id}}">{{$type->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>

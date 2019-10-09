@@ -25,6 +25,7 @@ class CreatePostsTable extends Migration
 			$table->integer('status')->default(1);
 			$table->boolean('highlight')->default(false);
 			$table->unsignedInteger('id_type');
+			$table->string('tags')->nullable();
 			$table->timestamps();
 			
 			$table->foreign('id_author')->references('id')->on('users')->onUpdate('cascade');

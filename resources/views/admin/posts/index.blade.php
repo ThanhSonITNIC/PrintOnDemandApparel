@@ -11,6 +11,7 @@
         ['value' => 'status', 'display' => 'Status'],
         ['value' => 'type.name', 'display' => 'Type'],
         ['value' => 'highlight', 'display' => 'Highlight'],
+        ['value' => 'created_at', 'display' => 'Created At'],
     ];
 @endphp
 @include('admin.layouts.search.index', $searchFields)
@@ -39,7 +40,6 @@
                                 <th>@lang('Author')</th>
                                 <th>@lang('Highlight')</th>
                                 <th>@lang('Type')</th>
-                                <th>@lang('Status')</th>
                                 <th>@lang('Created at')</th>
                             </tr>
                         </thead>
@@ -51,7 +51,6 @@
                                     <td>{{$post->author->name}}</td>
                                     <td>{{$post->highlight}}</td>
                                     <td>{{$post->type->name}}</td>
-                                    <td>{{$post->status}}</td>
                                     <td class="text-nowrap">{{$post->created_at}}</td>
                                 </tr>
                             @endforeach
@@ -63,7 +62,7 @@
         <div class="text-xs-right">
             {{-- {{ $posts->links() }} --}}
         </div>
-        {{-- <a class="btn btn-primary" href="{{route('admin.posts.create').'?type='.$type->id}}">@lang('Create')</a> --}}
+        <a class="btn btn-primary" href="{{route('admin.posts.create')}}">@lang('Create')</a>
     </div>
 </div>
 <!-- order Tables end -->    

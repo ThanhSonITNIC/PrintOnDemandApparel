@@ -15,6 +15,14 @@ use App\Validators\PostValidator;
  */
 class PostRepositoryEloquent extends BaseRepository implements PostRepository
 {
+    protected $fieldSearchable = [
+        'title' => 'like',
+        'author.name' => 'like',
+        'highlight' => '=',
+        'type.name' => 'like',
+        'created_at' => 'like',
+    ];
+
     /**
      * Specify Model class name
      *

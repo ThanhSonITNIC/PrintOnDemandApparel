@@ -8,6 +8,7 @@ use View;
 use App\Repositories\LevelRepository;
 use App\Repositories\ProductTypeRepository;
 use App\Repositories\OrderStatusRepository;
+use App\Repositories\PostTypeRepository;
 
 class AccessLevels
 {
@@ -16,15 +17,19 @@ class AccessLevels
     public function __construct(
         LevelRepository $levelRepository,
         ProductTypeRepository $productTypeRepository,
-        OrderStatusRepository $orderStatusRepository
+        OrderStatusRepository $orderStatusRepository,
+        PostTypeRepository $postTypeRepository
     ){
         $this->levelRepository = $levelRepository;
         $this->productTypeRepository = $productTypeRepository;
         $this->orderStatusRepository = $orderStatusRepository;
+        $this->postTypeRepository = $postTypeRepository;
 
         $this->levelRepository->popCriteria(RequestCriteria::class);
         $this->productTypeRepository->popCriteria(RequestCriteria::class);
         $this->orderStatusRepository->popCriteria(RequestCriteria::class);
+        $this->postTypeRepository->popCriteria(RequestCriteria::class);
+
     }
 
     /**
@@ -43,7 +48,8 @@ class AccessLevels
         if(Auth::user()->isAdmin()){
             View::share('levels', $this->levelRepository->all());
             View::share('productTypes', $this->productTypeRepository->all());
-            View::share('orderStatus', $this->orderStatusRepository->all());
+            View::share('orderStatuses', $this->orderStatusRepository->all());
+            View::share('postTypes', $this->postTypeRepository->all());
         }
 
         if(Auth::user()->isCustomer()){
