@@ -12,6 +12,7 @@ Ecommerce website
 ### Framework [Laravel (6.x)](https://github.com/laravel/laravel)
 ### Packages
 - https://github.com/andersao/l5-repository
+- https://github.com/Intervention/image
 
 ## Frontend
 ### Templates
