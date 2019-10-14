@@ -15,7 +15,7 @@ class Cart extends Model implements Transformable
 {
     use TransformableTrait;
 
-    protected $table = 'cart';
+    protected $table = 'carts';
 
     /**
      * The attributes that are mass assignable.

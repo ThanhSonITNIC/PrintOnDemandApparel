@@ -15,15 +15,31 @@ Route::get('/', function () {
     return view('front.home.index');
 });
 
+Route::post('register', 'Front\Auth\RegisterController@register')->name('front.register');
+
+// guest
 Route::prefix('')->middleware(['access.levels'])->namespace('Front')->name('front.')->group(function(){
+    Auth::routes();
+    Route::post('login', 'Auth\LoginController@login')->name('login');
+    
     Route::resource('products', 'ProductsController')->only(['index', 'show']);
 });
 
+// account
+Route::prefix('')->namespace('Front')->name('front.')->group(function(){
+
+    Route::prefix('')->middleware(['auth', 'access.levels:2'])->group(function(){
+        Route::resource('cart', 'CartsController');
+    });
+});
+
+// admin
 Route::get('password/reset/{token}', 'Admin\Auth\ResetPasswordController@showResetForm')->name('password.reset');
 
 Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function(){
     
     Auth::routes();
+
     Route::post('admin/login', 'Auth\LoginController@login')->name('login');
 
     Route::prefix('')->middleware(['auth', 'access.levels:1'])->group(function(){

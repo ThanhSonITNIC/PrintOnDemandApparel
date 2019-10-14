@@ -50,7 +50,7 @@ class CartsController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $carts = $this->repository->all();
+        $cart = $this->repository->all();
 
         if (request()->wantsJson()) {
 
@@ -59,7 +59,7 @@ class CartsController extends Controller
             ]);
         }
 
-        return view('carts.index', compact('carts'));
+        return view('front.cart.index', compact('cart'));
     }
 
     /**

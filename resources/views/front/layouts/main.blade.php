@@ -14,6 +14,8 @@
 
     @include('front.layouts.menu')
 
+    @include('layouts.alert');
+
     @yield('body')
 
     @include('front.layouts.footer')
