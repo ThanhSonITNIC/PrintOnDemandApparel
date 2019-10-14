@@ -7,7 +7,7 @@
     <h1>Order</h1>
     <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="cart.html">Order</a></li>
+        <li><a href="product.html">Order</a></li>
     </ul>
 </div>
 <div class="container">
@@ -70,7 +70,7 @@
                                         Hem</a></h4>
                                 <p class="price product-price"> <span class="price-new">$254.00</span> <span
                                         class="price-old">$272.00</span> </p>
-                                <div class="addto-cart"><a href="#">Add to Cart</a></div>
+                                <div class="addto-product"><a href="#">Add to product</a></div>
                             </div>
                         </div>
                     </li>
@@ -92,7 +92,7 @@
                                         Hem</a></h4>
                                 <p class="price product-price"> <span class="price-new">$254.00</span> <span
                                         class="price-old">$272.00</span> </p>
-                                <div class="addto-cart"><a href="#">Add to Cart</a></div>
+                                <div class="addto-product"><a href="#">Add to product</a></div>
                             </div>
                         </div>
                     </li>
@@ -114,7 +114,7 @@
                                         Hem</a></h4>
                                 <p class="price product-price"> <span class="price-new">$254.00</span> <span
                                         class="price-old">$272.00</span> </p>
-                                <div class="addto-cart"><a href="#">Add to Cart</a></div>
+                                <div class="addto-product"><a href="#">Add to product</a></div>
                             </div>
                         </div>
                     </li>
@@ -129,39 +129,60 @@
                             <tr>
                                 <td class="text-center">Image</td>
                                 <td class="text-left">Product Name</td>
-                                <td class="text-left">Model</td>
                                 <td class="text-left">Quantity</td>
-                                <td class="text-right">Unit Price</td>
+                                <td class="text-right">Price</td>
                                 <td class="text-right">Total</td>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="text-center"><a href="product.html"><img class="img-thumbnail" title="iPhone"
-                                            alt="iPhone" src="front_assets/image/product/2product56x72.jpg"></a></td>
-                                <td class="text-left"><a href="product.html">iPhone</a></td>
-                                <td class="text-left">product 11</td>
-                                <td class="text-left">
-                                    <div style="max-width: 200px;" class="input-group btn-block">
-                                        <input type="text" class="form-control quantity" size="1" value="1"
-                                            name="quantity">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-primary" title="" data-toggle="tooltip" type="submit"
-                                                data-original-title="Update"><i class="fa fa-refresh"></i></button>
-                                            <button class="btn btn-danger" title="" data-toggle="tooltip" type="button"
-                                                data-original-title="Remove"><i class="fa fa-times-circle"></i></button>
-                                        </span></div>
-                                </td>
-                                <td class="text-right">$254.00</td>
-                                <td class="text-right">$254.00</td>
-                            </tr>
+                            @foreach ($order->products()->get() as $product)
+                                <tr>
+                                    <td class="text-center"><a href="product.html"><img class="img-thumbnail img-avatar" title="iPhone"
+                                        alt="iPhone" src="{{asset(!isset(json_decode($product->product->images)->watermark) ?: json_decode($product->product->images)->watermark)}}"></a></td>
+                                    <td class="text-left">
+                                        <p><a href="{{route('front.products.show', $product->product->id)}}">{{$product->product->name}}</a></p>
+                                        <p>Size: {{$product->size}}</p>
+                                        <p>Color: {{$product->color}}</p>
+                                        <input type="text" name="note" placeholder="Note" style="width: 100%">
+                                    </td>
+                                    <td class="text-left">
+                                        <input type="text" class="form-control quantity" size="1" value="{{$product->quantity}}" name="quantity" readonly>
+                                    </td>
+                                    <td class="text-right">{{$product->price}}</td>
+                                    <td class="text-right">{{$product->price * $product->quantity}}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
             </form>
-            <div class="buttons">
-                <div class="pull-left"><a class="btn btn-default" href="index.html">Continue Shopping</a></div>
-                <div class="pull-right"><a class="btn btn-primary" href="checkout.html">Checkout</a></div>
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-8">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="text-right"><strong>Id:</strong></td>
+                                <td class="text-right">{{$order->id}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><strong>Total:</strong></td>
+                                <td class="text-right">{{$order->total}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><strong>Paid:</strong></td>
+                                <td class="text-right">{{$order->paid}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><strong>Status:</strong></td>
+                                <td class="text-right">{{$order->status()->first()->name}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><strong>Created at:</strong></td>
+                                <td class="text-right">{{$order->created_at}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

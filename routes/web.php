@@ -30,6 +30,7 @@ Route::prefix('')->namespace('Front')->name('front.')->group(function(){
 
     Route::prefix('')->middleware(['auth', 'access.levels:2'])->group(function(){
         Route::resource('cart', 'CartsController');
+        Route::resource('orders', 'OrdersController');
     });
 });
 

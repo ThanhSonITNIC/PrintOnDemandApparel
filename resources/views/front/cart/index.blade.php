@@ -147,7 +147,7 @@
                                         <input type="text" name="note" placeholder="Note" style="width: 100%">
                                     </td>
                                     <td class="text-left">
-                                        <input type="text" class="form-control quantity" size="1" value="1" name="quantity">
+                                        <input type="text" class="form-control quantity" size="1" value="{{$cart->quantity}}" name="quantity">
                                     </td>
                                     <td class="text-right">{{$cart->product->price}}</td>
                                     <td class="text-right">{{$cart->product->price * $cart->quantity}}</td>
@@ -183,7 +183,12 @@
             </div>
             <div class="buttons">
                 <div class="pull-left"><a class="btn btn-default" href="{{route('front.products.index')}}">Continue Shopping</a></div>
-                <div class="pull-right"><a class="btn btn-primary" href="checkout.html">Checkout</a></div>
+                <div class="pull-right">
+                    <form action="{{route('front.orders.store')}}" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-primary">Checkout</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

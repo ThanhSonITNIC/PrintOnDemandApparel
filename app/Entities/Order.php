@@ -37,7 +37,6 @@ class Order extends Model implements Transformable
     }
 
     public function products(){
-        // return $this->belongsToMany('App\Entities\Product', 'App\Entities\OrderProduct', 'id_order', 'id_product');
         return $this->hasMany('App\Entities\OrderProduct', 'id_order');
     }
 

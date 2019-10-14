@@ -4,6 +4,8 @@ namespace App\Observers;
 
 use App\Entities\Order;
 use App\Entities\OrderLog;
+use App\Entities\Cart;
+use App\Entities\OrderProduct;
 use Illuminate\Support\Facades\Auth;
 
 class OrderObserver
@@ -16,7 +18,21 @@ class OrderObserver
      */
     public function created(Order $order)
     {
-        //
+        $id_user = Auth::user()->id;
+
+        $carts = Cart::where('id_user', $id_user)->with('product')->get();
+        foreach ($carts as $cart) {
+            $product = new OrderProduct;
+            $product->id_product = $cart->id_product;
+            $product->id_order = $order->id;
+            $product->price = $cart->product->price;
+            $product->quantity = $cart->quantity;
+            $product->size = $cart->size;
+            $product->color = $cart->color;
+            $product->save();
+        }
+
+        Cart::where('id_user', $id_user)->delete();
     }
 
     /**

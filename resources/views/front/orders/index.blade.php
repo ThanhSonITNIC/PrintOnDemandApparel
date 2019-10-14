@@ -136,14 +136,16 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($orders as $order)
                             <tr>
-                                <td class="text-center"><a href="product.html">124354</a></td>
-                                <td class="text-right">352.932.000</td>
-                                <td class="text-right">254.000</td>
-                                <td class="text-center">New</td>
-                                <td class="text-center">This is note. This is note.</td>
-                                <td class="text-right">10/06/2019 15:15:00</td>
-                            </tr>
+                                <td class="text-center"><a href="{{route('front.orders.show', $order->id)}}">{{$order->id}}</a></td>
+                                <td class="text-right">{{$order->total}}</td>
+                                <td class="text-right">{{$order->paid}}</td>
+                                <td class="text-center">{{$order->status()->first()->name}}</td>
+                                <td class="text-center">{{$order->note}}</td>
+                                <td class="text-right">{{$order->created_at}}</td>
+                            </tr> 
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

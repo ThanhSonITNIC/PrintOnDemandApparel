@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Entities\OrderProduct;
 use App\Entities\OrderLog;
+use App\Entities\Order;
 use Illuminate\Support\Facades\Auth;
 
 class OrderProductObserver
@@ -16,7 +17,7 @@ class OrderProductObserver
      */
     public function created(OrderProduct $orderProduct)
     {
-        //
+        Order::where('id', $orderProduct->id_order)->update(['total' => $orderProduct->price * $orderProduct->quantity]);
     }
 
     /**
