@@ -21,6 +21,7 @@ class ProductRepositoryEloquent extends BaseRepository implements ProductReposit
         'price' => '=',
         'quantity' => '=',
         'type.name' => 'like',
+        'type.id' => '='
     ];
 
     /**

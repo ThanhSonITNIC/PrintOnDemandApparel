@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('front.home.index');
 });
 
+Route::prefix('')->middleware(['access.levels'])->namespace('Front')->name('front.')->group(function(){
+    Route::resource('products', 'ProductsController')->only(['index', 'show']);
+});
+
 Route::get('password/reset/{token}', 'Admin\Auth\ResetPasswordController@showResetForm')->name('password.reset');
 
 Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function(){

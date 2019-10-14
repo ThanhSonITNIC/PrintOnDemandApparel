@@ -41,20 +41,26 @@ class AccessLevels
      */
     public function handle($request, Closure $next, ...$levels)
     {
-        if(!in_array(Auth::user()->id_level, $levels)){
-            return abort(403, 'Access denied');
+        if($levels != []){ // account
+            if(!in_array(Auth::user()->id_level, $levels)){
+                return abort(403, 'Access denied');
+            }
+        
+            if(Auth::user()->isAdmin()){
+                View::share('levels', $this->levelRepository->all());
+            }
+    
+            if(Auth::user()->isCustomer()){
+                
+            }
+        }else{ // guest
+
         }
 
-        if(Auth::user()->isAdmin()){
-            View::share('levels', $this->levelRepository->all());
-            View::share('productTypes', $this->productTypeRepository->all());
-            View::share('orderStatuses', $this->orderStatusRepository->all());
-            View::share('postTypes', $this->postTypeRepository->all());
-        }
-
-        if(Auth::user()->isCustomer()){
-            
-        }
+        // all
+        View::share('productTypes', $this->productTypeRepository->all());
+        View::share('orderStatuses', $this->orderStatusRepository->all());
+        View::share('postTypes', $this->postTypeRepository->all());
 
         return $next($request);
     }
