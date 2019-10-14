@@ -83,7 +83,7 @@ class ProductsController extends Controller
                 $image = (new ImageProductUpload())->upload($request->file()['image']);
                 
                 // update request
-                $request->request->add(['images' => $image]);
+                $request->request->add(['success' => $image]);
             }
             
             $product = $this->repository->create($request->all());
@@ -198,7 +198,7 @@ class ProductsController extends Controller
                 return response()->json($response);
             }
 
-            return redirect()->back()->with('message', $response['message']);
+            return redirect()->back()->with('success', $response['message']);
         } catch (ValidatorException $e) {
 
             if ($request->wantsJson()) {
@@ -233,6 +233,6 @@ class ProductsController extends Controller
             ]);
         }
 
-        return redirect(route('admin.products.index'))->with('message', 'Product deleted.');
+        return redirect(route('admin.products.index'))->with('success', 'Product deleted.');
     }
 }

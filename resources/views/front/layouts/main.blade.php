@@ -14,7 +14,9 @@
 
     @include('front.layouts.menu')
 
-    @include('layouts.alert')
+    <div style="text-align: center">
+        @include('layouts.alert')
+    </div>
 
     @yield('body')
 

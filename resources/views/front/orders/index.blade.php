@@ -131,7 +131,6 @@
                                 <td class="text-right">Total</td>
                                 <td class="text-right">Paid</td>
                                 <td class="text-center">Status</td>
-                                <td class="text-center">Note</td>
                                 <td class="text-right">Created at</td>
                             </tr>
                         </thead>
@@ -142,7 +141,6 @@
                                 <td class="text-right">{{$order->total}}</td>
                                 <td class="text-right">{{$order->paid}}</td>
                                 <td class="text-center">{{$order->status()->first()->name}}</td>
-                                <td class="text-center">{{$order->note}}</td>
                                 <td class="text-right">{{$order->created_at}}</td>
                             </tr> 
                             @endforeach

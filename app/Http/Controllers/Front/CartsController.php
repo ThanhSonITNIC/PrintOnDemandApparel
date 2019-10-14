@@ -50,7 +50,7 @@ class CartsController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $carts = $this->repository->all();
+        $carts = $this->repository->findByField('id_user', auth()->id())->all();
 
         if (request()->wantsJson()) {
 
@@ -82,7 +82,7 @@ class CartsController extends Controller
             $cart = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'Cart created.',
+                'message' => 'Added to cart.',
                 'data'    => $cart->toArray(),
             ];
 
@@ -91,7 +91,7 @@ class CartsController extends Controller
                 return response()->json($response);
             }
 
-            return redirect()->back()->with('message', $response['message']);
+            return redirect(route('front.cart.index'))->with('success', $response['message']);
         } catch (ValidatorException $e) {
             if ($request->wantsJson()) {
                 return response()->json([
@@ -167,7 +167,7 @@ class CartsController extends Controller
                 return response()->json($response);
             }
 
-            return redirect()->back()->with('message', $response['message']);
+            return redirect()->back()->with('success', $response['message']);
         } catch (ValidatorException $e) {
 
             if ($request->wantsJson()) {
@@ -202,6 +202,6 @@ class CartsController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('message', 'Cart deleted.');
+        return redirect()->back()->with('success', 'Cart deleted.');
     }
 }

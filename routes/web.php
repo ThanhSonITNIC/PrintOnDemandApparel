@@ -11,16 +11,24 @@
 |
 */
 
-Route::get('/', function () {
-    return view('front.home.index');
-});
 
-Route::post('register', 'Front\Auth\RegisterController@register')->name('front.register');
+
+Route::prefix('')->middleware(['access.levels'])->group(function(){
+    Route::get('/', function () {
+        return view('front.home.index');
+    });
+
+    Route::post('register', 'Front\Auth\RegisterController@register')->name('front.register');
+
+    Route::get('password/reset/{token}', 'Admin\Auth\ResetPasswordController@showResetForm')->name('password.reset');
+
+});
 
 // guest
 Route::prefix('')->middleware(['access.levels'])->namespace('Front')->name('front.')->group(function(){
     Auth::routes();
     Route::post('login', 'Auth\LoginController@login')->name('login');
+    Route::get('logout', 'Auth\LoginController@logout')->name('logout');
     
     Route::resource('products', 'ProductsController')->only(['index', 'show']);
 });
@@ -35,8 +43,6 @@ Route::prefix('')->namespace('Front')->name('front.')->group(function(){
 });
 
 // admin
-Route::get('password/reset/{token}', 'Admin\Auth\ResetPasswordController@showResetForm')->name('password.reset');
-
 Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function(){
     
     Auth::routes();

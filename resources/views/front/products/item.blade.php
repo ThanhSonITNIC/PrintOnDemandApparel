@@ -2,16 +2,11 @@
     <div class="product-thumb">
         <div class="image product-imageblock">
             <a href="{{route('front.products.show', $product->id)}}">
-                <img src="{{asset(!isset(json_decode($product->images)->watermark) ?: json_decode($product->images)->watermark)}}" alt="iPod Classic" title="iPod Classic"
+                <img src="{{asset(!isset(json_decode($product->images)->watermark) ?: json_decode($product->images)->watermark)}}" alt="iPod Classic"
                     class="img-responsive" />
-                <img src="{{asset(!isset(json_decode($product->images)->watermark) ?: json_decode($product->images)->watermark)}}" alt="iPod Classic" title="iPod Classic"
+                <img src="{{asset(!isset(json_decode($product->images)->watermark) ?: json_decode($product->images)->watermark)}}" alt="iPod Classic"
                     class="img-responsive" />
             </a>
-            <ul class="button-group grid-btn">
-                <li>
-                    <button type="submit" class="addtocart-btn" title="Add to Cart">Add to Cart</button>
-                </li>
-            </ul>
         </div>
         <div class="caption product-detail">
             <h4 class="product-name"><a href="{{route('front.products.show', $product->id)}}" title="Casual Shirt With Ruffle Hem">{{$product->name}}</a></h4>

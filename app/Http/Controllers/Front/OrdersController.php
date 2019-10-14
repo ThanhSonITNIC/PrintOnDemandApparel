@@ -50,7 +50,7 @@ class OrdersController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $orders = $this->repository->all();
+        $orders = $this->repository->findByField('id_user', auth()->id())->all();
 
         if (request()->wantsJson()) {
 
@@ -91,7 +91,7 @@ class OrdersController extends Controller
                 return response()->json($response);
             }
 
-            return redirect(route('front.orders.index'))->with('message', $response['message']);
+            return redirect(route('front.orders.index'))->with('success', $response['message']);
         } catch (ValidatorException $e) {
             if ($request->wantsJson()) {
                 return response()->json([
@@ -167,7 +167,7 @@ class OrdersController extends Controller
                 return response()->json($response);
             }
 
-            return redirect()->back()->with('message', $response['message']);
+            return redirect()->back()->with('success', $response['message']);
         } catch (ValidatorException $e) {
 
             if ($request->wantsJson()) {
@@ -202,6 +202,6 @@ class OrdersController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('message', 'Order deleted.');
+        return redirect()->back()->with('success', 'Order deleted.');
     }
 }

@@ -1,7 +1,6 @@
 @extends('front.layouts.main')
 
 @section('body')
-
 <div class="breadcrumb parallax-container">
     <div class="parallax"><img src="front_assets/image/prlx.jpg" alt="#"></div>
     <h1>Shopping Cart</h1>
@@ -144,16 +143,16 @@
                                         <p><a href="{{route('front.products.show', $cart->product->id)}}">{{$cart->product->name}}</a></p>
                                         <p>Size: {{$cart->size}}</p>
                                         <p>Color: {{$cart->color}}</p>
-                                        <input type="text" name="note" placeholder="Note" style="width: 100%">
+                                        <input type="text" name="note" form="f_{{$cart->id}}" placeholder="Note" value="{{$cart->note}}" style="width: 100%">
                                     </td>
                                     <td class="text-left">
-                                        <input type="text" class="form-control quantity" size="1" value="{{$cart->quantity}}" name="quantity">
+                                        <input type="text" class="form-control quantity" size="1" form="f_{{$cart->id}}" value="{{$cart->quantity}}" name="quantity">
                                     </td>
                                     <td class="text-right">{{$cart->product->price}}</td>
                                     <td class="text-right">{{$cart->product->price * $cart->quantity}}</td>
                                     <td class="text-right">
-                                        <p><a class="btn-success" style="text-align:center"><i class="fa fa-check" style="width:20px"></i></a></p>
-                                        <p><a class="btn-danger" style="text-align:center"><i class="fa fa-times" style="width:20px"></i></a></p>
+                                        <p><button class="btn-success" type="submit" form="f_{{$cart->id}}"><i class="fa fa-check" style="width:20px"></i></button></p>
+                                        <p><button class="btn-danger" type="submit" form="f_d_{{$cart->id}}"><i class="fa fa-times" style="width:20px"></i></button></p>
                                     </td>
                                 </tr>
                             @endforeach
@@ -161,6 +160,12 @@
                     </table>
                 </div>
             </form>
+            @foreach ($carts as $cart)
+                <form action="{{route('front.cart.update', $cart->id)}}" method="post" id="f_{{$cart->id}}">@method('PUT') @csrf</form>
+            @endforeach
+            @foreach ($carts as $cart)
+                <form action="{{route('front.cart.destroy', $cart->id)}}" method="post" id="f_d_{{$cart->id}}">@method('DELETE') @csrf</form>
+            @endforeach
             <div class="row">
                 <div class="col-sm-4 col-sm-offset-8">
                     <table class="table table-bordered">

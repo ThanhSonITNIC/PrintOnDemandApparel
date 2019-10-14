@@ -35,16 +35,27 @@
                         <div id="top-links" class="nav pull-right">
                             <ul class="list-inline">
                                 @if(auth()->check())
-                                    <li>
-                                        <a href="">@php echo auth()->user()->name @endphp</a>
-                                    </li>
+                                <li>
+                                    <a href=""></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" title="Account" class="dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                        <span>@php echo auth()->user()->name @endphp</span> 
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li><a>Profile</a></li>
+                                        <li><a href="{{route('front.logout')}}">Logout</a></li>
+                                    </ul>
+                                </li>
                                 @else
                                 <li class="dropdown"><a href="#" title="My Account" class="dropdown-toggle"
                                         data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i><span>My
                                             Account</span> <span class="caret"></span></a>
                                     <ul class="dropdown-menu dropdown-menu-right">
-                                        <li><a href="register.html">Register</a></li>
-                                        <li><a href="login.html">Login</a></li>
+                                        <li><a href="{{route('front.register')}}">Register</a></li>
+                                        <li><a href="{{route('front.login')}}">Login</a></li>
                                     </ul>
                                 </li>
                                 
