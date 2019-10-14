@@ -50,7 +50,7 @@ class CartsController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $cart = $this->repository->all();
+        $carts = $this->repository->all();
 
         if (request()->wantsJson()) {
 
@@ -59,7 +59,7 @@ class CartsController extends Controller
             ]);
         }
 
-        return view('front.cart.index', compact('cart'));
+        return view('front.cart.index', compact('carts'));
     }
 
     /**
@@ -74,6 +74,8 @@ class CartsController extends Controller
     public function store(CartCreateRequest $request)
     {
         try {
+            // update request
+            $request->request->add(['id_user' => auth()->id()]);
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 

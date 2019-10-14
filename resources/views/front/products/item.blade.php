@@ -9,7 +9,7 @@
             </a>
             <ul class="button-group grid-btn">
                 <li>
-                    <button type="button" class="addtocart-btn" title="Add to Cart">Add to Cart</button>
+                    <button type="submit" class="addtocart-btn" title="Add to Cart">Add to Cart</button>
                 </li>
             </ul>
         </div>

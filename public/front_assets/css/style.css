@@ -1,0 +1,13 @@
+.btn-danger{
+    background-color: red;
+}
+
+.btn-danger:hover{
+    background-color: #ec1b1b;
+    color: wheat;
+}
+
+.img-avatar{
+    width: 120px;
+    height: 100px;
+}

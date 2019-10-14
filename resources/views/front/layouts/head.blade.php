@@ -12,6 +12,7 @@
 <link href="front_assets/css/responsive.css" rel="stylesheet">
 <link href="front_assets/javascript/owl-carousel/owl.carousel.css" type="text/css" rel="stylesheet" media="screen" />
 <link href="front_assets/javascript/owl-carousel/owl.transitions.css" type="text/css" rel="stylesheet" media="screen" />
+<link href="front_assets/css/style.css" rel="stylesheet">
 <script type="text/javascript" src="front_assets/javascript/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="front_assets/javascript/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="front_assets/javascript/template_js/jstree.min.js"></script>

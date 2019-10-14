@@ -34,6 +34,11 @@
                     <div class="top-right pull-right">
                         <div id="top-links" class="nav pull-right">
                             <ul class="list-inline">
+                                @if(auth()->check())
+                                    <li>
+                                        <a href="">@php echo auth()->user()->name @endphp</a>
+                                    </li>
+                                @else
                                 <li class="dropdown"><a href="#" title="My Account" class="dropdown-toggle"
                                         data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i><span>My
                                             Account</span> <span class="caret"></span></a>
@@ -42,8 +47,8 @@
                                         <li><a href="login.html">Login</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="#" id="wishlist-total" title="Wish List (0)"><i class="fa fa-heart"
-                                            aria-hidden="true"></i><span>Wish List</span><span> (0)</span></a></li>
+                                
+                                @endif
                             </ul>
                         </div>
                     </div>

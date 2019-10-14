@@ -17,6 +17,8 @@ class Cart extends Model implements Transformable
 
     protected $table = 'carts';
 
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable.
      *
