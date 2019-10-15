@@ -10,9 +10,9 @@
                 @foreach ($productTypes as $type)
                     <li><a href="{{route('front.products.index')."?searchFields=type.id&search=".$type->id}}" class="parent">{{$type->name}}</a> </li>
                 @endforeach
-                <li><a href="blog.html" class="parent">Blog</a></li>
-                <li><a href="about-us.html">About us</a></li>
-                <li><a href="contact.html">Contact Us</a> </li>
+                <li><a href="{{route('front.posts.index')}}" class="parent">Posts</a></li>
+                <li><a href="{{route('front.posts.show', 1)}}">About us</a></li>
+                <li><a href="{{route('front.posts.show', 2)}}">Contact Us</a> </li>
             </ul>
         </div>
     </div>

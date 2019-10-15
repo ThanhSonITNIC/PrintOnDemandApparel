@@ -13,65 +13,20 @@
 <div class="container">
   <div class="row">
     <div class="content col-sm-9">
-      <div class="blog1 blog">
-        <div class="blog-image"> <a href="#" class="blog-imagelink"><img src="front_assets/image/blog/blog_1.jpg" alt="#"></a>
+      @foreach ($posts as $post)
+      <div class="blog1 blog" style="margin-top: 20px">
+        <div class="blog-image"> 
+          <a href="{{route('front.posts.show', $post->id)}}" class="blog-imagelink">
+            <img src="{{asset(!isset(json_decode($post->image)->link) ?: json_decode($post->image)->link)}}" alt="#">
+          </a>
           <span class="blog-hover"></span> </div>
-        <div class="blog-content"> <span class="blog-date">02/05/2016</span>
-          <h2 class="blog-name"><a href="single-blog.html">You Have Got Questions We have Got Answers</a> </h2>
-          <span class="blog-author">by <a href="#"> funchuk wangadu</a> </span> <span class="blog-comment">3
-            comments</span>
-          <div class="blog-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae provident minus
-            similique porro assumenda illo dolore ducimus vero ipsum illum ipsa velit, deleniti accusantium repellat
-            facilis tempora ab …..</div>
-          <a href="single-blog.html" class="blog-readmore">Read More</a>
+        <div class="blog-content"> <span class="blog-date">{{$post->created_at}}</span>
+          <h2 class="blog-name"><a href="{{route('front.posts.show', $post->id)}}">{{$post->title}}</a> </h2>
+          <div class="blog-desc">{{$post->description}}</div>
+          <a href="{{route('front.posts.show', $post->id)}}" class="blog-readmore">Read More</a>
         </div>
       </div>
-      <div class="blog2 blog">
-        <div class="blog_img video">
-          <video controls>
-            <source type="video/mp4" src="front_assets/image/MakeUp.mp4">
-            <source type="video/ogg" src="MakeUp.ogg">
-            Your browser does not support HTML5 video. </video>
-        </div>
-        <div class="blog-content"> <span class="blog-date">02/05/2016</span>
-          <h2 class="blog-name"><a href="single-blog.html">You Have Got Questions We have Got Answers</a> </h2>
-          <span class="blog-author">by <a href="#"> funchuk wangadu</a> </span> <span class="blog-comment">3
-            comments</span>
-          <div class="blog-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae provident minus
-            similique porro assumenda illo dolore ducimus vero ipsum illum ipsa velit, deleniti accusantium repellat
-            facilis tempora ab …..</div>
-          <a href="single-blog.html" class="blog-readmore">Read More</a>
-        </div>
-      </div>
-      <div class="blog3 blog">
-        <div class="blog_img owl-carousel home-slider owl-theme gellery">
-          <div class="item"> <a href="#"><img src="front_assets/image/blog/blog_1.jpg" alt="" class="img-responsive" /></a> </div>
-          <div class="item"> <a href="#"><img src="front_assets/image/blog/blog_2.jpg" alt="" class="img-responsive" /></a> </div>
-          <div class="item"> <a href="#"><img src="front_assets/image/blog/blog_3.jpg" alt="" class="img-responsive" /></a> </div>
-        </div>
-        <div class="blog-content"> <span class="blog-date">02/05/2016</span>
-          <h2 class="blog-name"><a href="single-blog.html">You Have Got Questions We have Got Answers</a> </h2>
-          <span class="blog-author">by <a href="#"> funchuk wangadu</a> </span> <span class="blog-comment">3
-            comments</span>
-          <div class="blog-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae provident minus
-            similique porro assumenda illo dolore ducimus vero ipsum illum ipsa velit, deleniti accusantium repellat
-            facilis tempora ab …..</div>
-          <a href="single-blog.html" class="blog-readmore">Read More</a>
-        </div>
-      </div>
-      <div class="blog4 blog">
-        <div class="blog-image"> <a href="#" class="blog-imagelink"><img src="front_assets/image/blog/blog_4.jpg" alt="#"></a>
-          <span class="blog-hover"></span> </div>
-        <div class="blog-content"> <span class="blog-date">02/05/2016</span>
-          <h2 class="blog-name"><a href="single-blog.html">You Have Got Questions We have Got Answers</a> </h2>
-          <span class="blog-author">by <a href="#"> funchuk wangadu</a> </span> <span class="blog-comment">3
-            comments</span>
-          <div class="blog-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae provident minus
-            similique porro assumenda illo dolore ducimus vero ipsum illum ipsa velit, deleniti accusantium repellat
-            facilis tempora ab …..</div>
-          <a href="single-blog.html" class="blog-readmore">Read More</a>
-        </div>
-      </div>
+      @endforeach
     </div>
     <!-- end blog-home -->
     <div class="col-sm-3 hidden-xs column-right" id="column-right">
@@ -79,19 +34,9 @@
         <div class="columnblock-title">Categories</div>
         <div class="category_block">
           <ul class="box-category">
-            <li><a href="#">Video Post Format</a></li>
-            <li><a href="#">Quote Post Format</a></li>
-            <li><a href="#">Gallery Post Format</a></li>
-            <li><a href="#">Link Post Format</a></li>
-            <li><a href="#">Address Book</a></li>
-            <li><a href="#">Wish Post Format</a></li>
-            <li><a href="#">Order Post Format</a></li>
-            <li><a href="#">Uncategorized Post Format</a></li>
-            <li><a href="#">Post Format</a></li>
-            <li><a href="#">Transactions Post Format</a></li>
-            <li><a href="#">Returns Post Format</a></li>
-            <li><a href="#">Post Format</a></li>
-            <li><a href="#">Recurring Post Format</a></li>
+            @foreach ($postTypes as $type)
+            <li><a href="{{route('front.posts.index')}}">{{$type->name}}</a></li>
+            @endforeach
           </ul>
         </div>
       </div>
@@ -221,58 +166,6 @@
         </div>
       </div>
     </div>
-  </div>
-</div>
-<div class="footer-top-cms parallax-container">
-  <div class="parallax"><img src="front_assets/image/news.jpg" alt="#"></div>
-  <div class="container">
-    <div class="row">
-      <div class="newslatter">
-        <form>
-          <h5>SIGN UP FOR OUR DISCOUNTS TODAY!</h5>
-          <h4 class="title-subline">Be sure to follow our blog and sign up for all of our mailing updates!</h4>
-          <div class="input-group">
-            <input type="text" class=" form-control" placeholder="Your-email@website.com">
-            <button type="submit" value="Sign up" class="btn btn-large btn-primary">Subscribe</button>
-          </div>
-        </form>
-      </div>
-      <div class="footer-social">
-        <ul>
-          <li class="facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
-          <li class="linkedin"><a href="#"><i class="fa fa-linkedin"></i></a></li>
-          <li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
-          <li class="gplus"><a href="#"><i class="fa fa-google-plus"></i></a></li>
-          <li class="youtube"><a href="#"><i class="fa fa-youtube-play"></i></a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="container">
-  <h3 class="client-title">Favourite Brands</h3>
-  <h4 class="title-subline">The High Quality Products</h4>
-  <div id="brand_carouse" class="owl-carousel brand-logo">
-    <div class="item text-center"> <a href="#"><img src="front_assets/image/brand/brand1.png" alt="Disney"
-          class="img-responsive" /></a> </div>
-    <div class="item text-center"> <a href="#"><img src="front_assets/image/brand/brand2.png" alt="Dell"
-          class="img-responsive" /></a> </div>
-    <div class="item text-center"> <a href="#"><img src="front_assets/image/brand/brand3.png" alt="Harley"
-          class="img-responsive" /></a> </div>
-    <div class="item text-center"> <a href="#"><img src="front_assets/image/brand/brand4.png" alt="Canon"
-          class="img-responsive" /></a> </div>
-    <div class="item text-center"> <a href="#"><img src="front_assets/image/brand/brand5.png" alt="Canon"
-          class="img-responsive" /></a> </div>
-    <div class="item text-center"> <a href="#"><img src="front_assets/image/brand/brand6.png" alt="Canon"
-          class="img-responsive" /></a> </div>
-    <div class="item text-center"> <a href="#"><img src="front_assets/image/brand/brand7.png" alt="Canon"
-          class="img-responsive" /></a> </div>
-    <div class="item text-center"> <a href="#"><img src="front_assets/image/brand/brand8.png" alt="Canon"
-          class="img-responsive" /></a> </div>
-    <div class="item text-center"> <a href="#"><img src="front_assets/image/brand/brand9.png" alt="Canon"
-          class="img-responsive" /></a> </div>
-    <div class="item text-center"> <a href="#"><img src="front_assets/image/brand/brand5.png" alt="Canon"
-          class="img-responsive" /></a> </div>
   </div>
 </div>
 

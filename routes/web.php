@@ -31,11 +31,12 @@ Route::prefix('')->middleware(['access.levels'])->namespace('Front')->name('fron
     Route::get('logout', 'Auth\LoginController@logout')->name('logout');
     
     Route::resource('products', 'ProductsController')->only(['index', 'show']);
+    Route::resource('posts', 'PostsController');
+
 });
 
 // account
 Route::prefix('')->namespace('Front')->name('front.')->group(function(){
-
     Route::prefix('')->middleware(['auth', 'access.levels:2'])->group(function(){
         Route::resource('cart', 'CartsController');
         Route::resource('orders', 'OrdersController');
