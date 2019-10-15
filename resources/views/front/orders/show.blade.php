@@ -23,6 +23,7 @@
                             <tr>
                                 <td class="text-center">Image</td>
                                 <td class="text-left">Product Name</td>
+                                <td class="text-left">File</td>
                                 <td class="text-left">Quantity</td>
                                 <td class="text-right">Price</td>
                                 <td class="text-right">Total</td>
@@ -38,6 +39,15 @@
                                         <p>Size: {{$product->size}}</p>
                                         <p>Color: {{$product->color}}</p>
                                         <input type="text" name="note" placeholder="Note" style="width: 100%">
+                                    </td>
+                                    <td>
+                                        <label>
+                                            @if($product->image == null)
+                                                None
+                                            @else
+                                                <img src="{{asset(!isset(json_decode($product->image)->watermark) ?: json_decode($product->image)->watermark)}}" width="100px" height="100px"/>
+                                            @endif
+                                        </label>
                                     </td>
                                     <td class="text-left">
                                         <input type="text" class="form-control quantity" size="1" value="{{$product->quantity}}" name="quantity" readonly>

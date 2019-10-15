@@ -12,6 +12,7 @@ use App\Http\Requests\CartCreateRequest;
 use App\Http\Requests\CartUpdateRequest;
 use App\Repositories\CartRepository;
 use App\Validators\CartValidator;
+use App\Classes\Files\ImageApparelUpload;
 
 /**
  * Class CartsController.
@@ -152,8 +153,17 @@ class CartsController extends Controller
     public function update(CartUpdateRequest $request, $id)
     {
         try {
-
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
+
+            //catch image
+            if($request->hasFile('imagex')){
+                // upload
+                $cart = $this->repository->find($id);
+                $image = (new ImageApparelUpload($cart))->upload($request->file()['imagex']);
+                
+                // update request
+                $request->request->add(['image' => $image]);
+            }
 
             $cart = $this->repository->update($request->all(), $id);
 

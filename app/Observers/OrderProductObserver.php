@@ -28,6 +28,15 @@ class OrderProductObserver
      */
     public function updated(OrderProduct $orderProduct)
     {
+        // update order total
+        if($orderProduct->isDirty('price') || $orderProduct->isDirty('quantity')){
+            $old_total = $orderProduct->getOriginal('price') * $orderProduct->getOriginal('quantity');
+            $new_total = $orderProduct->price * $orderProduct->quantity;
+            $update_total = $new_total - $old_total;
+            $current_total = Order::where('id', $orderProduct->id_order)->first()->total;
+            Order::where('id', $orderProduct->id_order)->update(['total' => $current_total + $update_total]);
+        }
+
         // Write log
         $log = new OrderLog;
         $log->id_user = Auth::user()->id;

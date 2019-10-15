@@ -29,6 +29,7 @@ class OrderObserver
             $product->quantity = $cart->quantity;
             $product->size = $cart->size;
             $product->color = $cart->color;
+            $product->image = $cart->image;
             $product->save();
         }
 

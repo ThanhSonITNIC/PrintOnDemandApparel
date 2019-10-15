@@ -88,7 +88,9 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>@lang('Product')</th>
+                                <th>@lang('Image')</th>
+                                <th>@lang('Name')</th>
+                                <th>@lang('File')</th>
                                 <th>@lang('Quantity')</th>
                                 <th>@lang('Price')</th>
                                 <th>@lang('Total')</th>
@@ -99,10 +101,12 @@
                             @foreach ($order->products as $index=>$product)
                                 <tr data-id="{{$product->id_product}}"  data-toggle="modal" data-target="#product_{{$product->id_product}}">
                                     <th scope="row">{{$index+1}}</th>
+                                    <td><img src="{{asset(!isset(json_decode($product->product->images)->watermark) ?: json_decode($product->product->images)->watermark)}}" width="50px" height="50px"></td>
                                     <td class="text-nowrap"><a href='{{route('admin.products.show', $product->product->id)}}'>{{$product->product->name}}</a></td>
+                                    <td><img src="{{asset(!isset(json_decode($product->image)->watermark) ?: json_decode($product->image)->watermark)}}" width="50px" height="50px"></td>
                                     <td>{{$product->quantity}}</td>
                                     <td>{{$product->price}}</td>
-                                    <td>{{$product->total}}</td>
+                                    <td>{{$product->price * $product->quantity}}</td>
                                 </tr>
 
                                 <div class="modal fade text-xs-left" id="product_{{$product->id_product}}" tabindex="-1" role="dialog" aria-hidden="true">
