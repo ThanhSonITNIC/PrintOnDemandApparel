@@ -7,6 +7,7 @@ use Auth;
 use View;
 use App\Repositories\LevelRepository;
 use App\Repositories\ProductTypeRepository;
+use App\Repositories\ProductRepository;
 use App\Repositories\OrderStatusRepository;
 use App\Repositories\PostTypeRepository;
 
@@ -18,18 +19,20 @@ class AccessLevels
         LevelRepository $levelRepository,
         ProductTypeRepository $productTypeRepository,
         OrderStatusRepository $orderStatusRepository,
-        PostTypeRepository $postTypeRepository
+        PostTypeRepository $postTypeRepository,
+        ProductRepository $productRepository
     ){
         $this->levelRepository = $levelRepository;
         $this->productTypeRepository = $productTypeRepository;
         $this->orderStatusRepository = $orderStatusRepository;
         $this->postTypeRepository = $postTypeRepository;
+        $this->productRepository = $productRepository;
 
         $this->levelRepository->popCriteria(RequestCriteria::class);
         $this->productTypeRepository->popCriteria(RequestCriteria::class);
         $this->orderStatusRepository->popCriteria(RequestCriteria::class);
         $this->postTypeRepository->popCriteria(RequestCriteria::class);
-
+        $this->productRepository->popCriteria(RequestCriteria::class);
     }
 
     /**

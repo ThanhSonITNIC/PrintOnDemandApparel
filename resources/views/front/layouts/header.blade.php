@@ -45,7 +45,8 @@
                                         <span class="caret"></span>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-right">
-                                        <li><a>Profile</a></li>
+                                        <li><a href="{{route('front.cart.index')}}">Cart</a></li>
+                                        <li><a href="{{route('front.orders.index')}}">Orders</a></li>
                                         <li><a href="{{route('front.logout')}}">Logout</a></li>
                                     </ul>
                                 </li>

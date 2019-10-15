@@ -2,15 +2,15 @@
     <div class="columnblock-title">Menu</div>
     <div class="category_block">
         <ul class="box-category treeview-list treeview">
-            <li><a href="#" class="activSub">Products</a>
+            <li><a href="{{route('front.products.index')}}" class="activSub">Products</a>
                 <ul>
                     @foreach ($productTypes as $type)
                     <li><a href="{{route('front.products.index')."?searchFields=type.id&search=".$type->id}}">{{$type->name}}</a></li>
                     @endforeach
                 </ul>
             </li>
-            <li><a href="#">Orders</a></li>
-            <li><a href="#">Cart</a></li>
+            <li><a href="{{route('front.orders.index')}}">Orders</a></li>
+            <li><a href="{{route('front.cart.index')}}">Cart</a></li>
         </ul>
     </div>
 </div>

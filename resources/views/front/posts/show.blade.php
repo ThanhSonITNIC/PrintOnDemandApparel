@@ -24,7 +24,7 @@
                     <div class="blog-desc">{{$post->description}}</div>
                     <div>
                         <p>
-                            {{$post->content}}
+                            {!!$post->content!!}
                         </p>
                     </div>
                 </div>
