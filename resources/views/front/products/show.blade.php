@@ -72,7 +72,7 @@
                     <h1 class="productpage-title">{{$product->name}}</h1>
                     <ul class="list-unstyled productinfo-details-top">
                         <li>
-                            <h2 class="productpage-price">$122.00</h2>
+                            <h2 class="productpage-price">{{$product->price}}</h2>
                         </li>
                     </ul>
                     <hr>
