@@ -38,7 +38,7 @@
                                         <p><a href="{{route('front.products.show', $product->product->id)}}">{{$product->product->name}}</a></p>
                                         <p>Size: {{$product->size}}</p>
                                         <p>Color: {{$product->color}}</p>
-                                        <input type="text" name="note" placeholder="Note" style="width: 100%">
+                                        <input type="text" name="note" value="{{$product->note}}" placeholder="Note" style="width: 100%">
                                     </td>
                                     <td>
                                         <label>
