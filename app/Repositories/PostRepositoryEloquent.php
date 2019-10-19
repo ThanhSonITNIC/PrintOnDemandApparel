@@ -20,7 +20,9 @@ class PostRepositoryEloquent extends BaseRepository implements PostRepository
         'author.name' => 'like',
         'highlight' => '=',
         'type.name' => 'like',
+        'type.id' => '=',
         'created_at' => 'like',
+        'tags' => 'like'
     ];
 
     /**

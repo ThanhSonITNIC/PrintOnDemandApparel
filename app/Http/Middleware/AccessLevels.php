@@ -8,6 +8,7 @@ use View;
 use App\Repositories\LevelRepository;
 use App\Repositories\ProductTypeRepository;
 use App\Repositories\ProductRepository;
+use App\Repositories\PostRepository;
 use App\Repositories\OrderStatusRepository;
 use App\Repositories\PostTypeRepository;
 
@@ -20,19 +21,22 @@ class AccessLevels
         ProductTypeRepository $productTypeRepository,
         OrderStatusRepository $orderStatusRepository,
         PostTypeRepository $postTypeRepository,
-        ProductRepository $productRepository
+        ProductRepository $productRepository,
+        PostRepository $postRepository
     ){
         $this->levelRepository = $levelRepository;
         $this->productTypeRepository = $productTypeRepository;
         $this->orderStatusRepository = $orderStatusRepository;
         $this->postTypeRepository = $postTypeRepository;
         $this->productRepository = $productRepository;
+        $this->postRepository = $postRepository;
 
         $this->levelRepository->popCriteria(RequestCriteria::class);
         $this->productTypeRepository->popCriteria(RequestCriteria::class);
         $this->orderStatusRepository->popCriteria(RequestCriteria::class);
         $this->postTypeRepository->popCriteria(RequestCriteria::class);
         $this->productRepository->popCriteria(RequestCriteria::class);
+        $this->postRepository->popCriteria(RequestCriteria::class);
     }
 
     /**
@@ -64,6 +68,8 @@ class AccessLevels
         View::share('productTypes', $this->productTypeRepository->all());
         View::share('orderStatuses', $this->orderStatusRepository->all());
         View::share('postTypes', $this->postTypeRepository->all());
+        View::share('topPosts', $this->postRepository->findByField('highlight', true));
+        View::share('topProducts', $this->productRepository->findByField('highlight', true));
 
         return $next($request);
     }

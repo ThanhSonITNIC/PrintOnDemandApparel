@@ -86,8 +86,8 @@
                                                 {{-- @foreach ($m_statususer as $status)
                                                     <option value="{{$status->id}}" @if($status->id == $user->id_status) selected @endif>{{$status->name}}</option>
                                                 @endforeach --}}
-                                                <option>xxx</option>
-                                                <option>xxx</option>
+                                                <option>Alive</option>
+                                                <option>Blocked</option>
                                             </select>
                                         </div>
                                     </div>

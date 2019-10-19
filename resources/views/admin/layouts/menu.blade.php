@@ -21,7 +21,8 @@
             <li class=" nav-item"><a href="/admin/settings"><i class="icon-settings"></i><span data-i18n="nav.cards.main" class="menu-title">Settings</span></a>
                 <ul class="menu-content">
                     <li>
-                        <a href="/admin/settings/1" data-i18n="nav.cards.card_actions" class="menu-item">Show</a>
+                        <a data-i18n="nav.cards.card_actions" class="menu-item">Post Types</a>
+                        <a data-i18n="nav.cards.card_actions" class="menu-item">Product Types</a>
                     </li>
                 </ul>
             </li>

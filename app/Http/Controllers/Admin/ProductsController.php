@@ -175,6 +175,8 @@ class ProductsController extends Controller
                 $request->request->add(['highlight' => true]);
             }
 
+            // dd($request->all());
+
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
             //catch image

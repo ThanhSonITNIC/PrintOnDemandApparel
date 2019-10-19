@@ -4,11 +4,11 @@
 
 <div class="breadcrumb parallax-container">
     <div class="parallax"><img src="front_assets/image/prlx.jpg" alt="#"></div>
-    <h1>We Have Got Answers</h1>
+    <h1>{{$post->title}}</h1>
     <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="blog.html">Blog</a></li>
-        <li><a href="single-blog.html">Singale Post</a></li>
+        <li><a href="single-blog.html">{{$post->title}}</a></li>
     </ul>
 </div>
 <div class="container">
@@ -41,17 +41,21 @@
                     </ul>
                 </div>
             </div>
+            <div class="Categories right-sidebar-widget">
+                <div class="columnblock-title">Tags</div>
+                <ul class="tagcloud">
+                    @foreach (explode(',', $post->tags) as $tag)
+                    <li><a href="{{route('front.posts.index')."?search=".$tag}}">{{$tag}}</a></li>
+                    @endforeach
+                </ul>
+            </div>
             <div class="recentpost left-sidebar-widget">
-                <div class="columnblock-title">Recent Posts</div>
+                <div class="columnblock-title">Top Posts</div>
                 <div class="category_block">
                     <ul class="box-category">
-                        <li><a href="#">Video Post Format</a></li>
-                        <li><a href="#">Gallery Post Format</a></li>
-                        <li><a href="#">Link Post Format</a></li>
-                        <li><a href="#">Wish Post Format</a></li>
-                        <li><a href="#">Uncategorized Post Format</a></li>
-                        <li><a href="#">Transactions Post Format</a></li>
-                        <li><a href="#">Post Format</a></li>
+                        @foreach ($topPosts as $post)
+                        <li><a href="{{route('front.posts.show', $post->id)}}">{{$post->title}}</a></li>
+                        @endforeach
                     </ul>
                 </div>
             </div>

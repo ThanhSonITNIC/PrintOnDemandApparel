@@ -16,6 +16,7 @@ class PostTypesTableSeeder extends Seeder
             ['name' => 'Tin tức'],
             ['name' => 'Chính sách'],
             ['name' => 'Thanh toán'],
+            ['name' => 'Giới thiệu'],
         ]);
     }
 }

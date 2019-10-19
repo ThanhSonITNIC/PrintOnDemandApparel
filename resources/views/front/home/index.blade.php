@@ -33,15 +33,15 @@
                             <div class="product-layout  product-grid  col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                 <div class="item">
                                     <div class="product-thumb">
-                                        <div class="image product-imageblock"> <a href="{{route('front.products.show', $product->id)}}"> <img
+                                        <div class="image product-imageblock"> <a href="{{route('front.products.show', $product->id)}}"> <img style="height:230px"
                                                     src="{{asset(!isset(json_decode($product->images)->watermark) ?: json_decode($product->images)->watermark)}}" alt="iPod Classic"
-                                                    title="iPod Classic" class="img-responsive" /> <img
+                                                    title="iPod Classic" class="img-responsive" /> <img style="height:230px"
                                                     src="{{asset(!isset(json_decode($product->images)->watermark) ?: json_decode($product->images)->watermark)}}" alt="iPod Classic"
                                                     title="iPod Classic" class="img-responsive" /> </a>
                                             <ul class="button-group">
                                                 <li>
-                                                    <button type="button" class="addtocart-btn" title="Add to Cart"> Add
-                                                        to Cart </button>
+                                                    <a type="button" class="addtocart-btn" title="Add to Cart"> Add
+                                                        to Cart </a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -81,9 +81,9 @@
                         @foreach ($type->products as $product)
                         <div class="item">
                             <div class="product-thumb">
-                                <div class="image product-imageblock"> <a href="product.html"> <img
+                                <div class="image product-imageblock"> <a href="{{route('front.products.show', $product->id)}}"> <img style="height:230px"
                                             src="{{asset(!isset(json_decode($product->images)->watermark) ?: json_decode($product->images)->watermark)}}" alt="iPod Classic" title="iPod Classic"
-                                            class="img-responsive" /> <img src="{{asset(!isset(json_decode($product->images)->watermark) ?: json_decode($product->images)->watermark)}}"
+                                            class="img-responsive" /> <img  style="height:230px" src="{{asset(!isset(json_decode($product->images)->watermark) ?: json_decode($product->images)->watermark)}}"
                                             alt="iPod Classic" title="iPod Classic" class="img-responsive" /> </a>
                                     <ul class="button-group">
                                         <li>
@@ -115,7 +115,7 @@
                                 @foreach ($type->posts as $post)
                                 <li class="item blog-slider-item">
                                     <div class="blog1 blog">
-                                        <div class="blog-image"> <a href="{{route('front.posts.show', $post->id)}}" class="blog-imagelink"><img
+                                        <div class="blog-image"> <a href="{{route('front.posts.show', $post->id)}}" class="blog-imagelink"><img style="height:230px"
                                                     src="{{asset(!isset(json_decode($post->image)->watermark) ?: json_decode($post->image)->watermark)}}" alt="#"></a> <span
                                                 class="blog-hover"></span> <span class="blog-readmore-outer"></span>
                                         </div>

@@ -18,8 +18,6 @@ class ProductTypesTableSeeder extends Seeder
             ['name' => 'Áo thun'],
             ['name' => 'Mũ'],
             ['name' => 'Balo'],
-            ['name' => 'Chó'],
-            ['name' => 'Gà'],
         ]);
     }
 }

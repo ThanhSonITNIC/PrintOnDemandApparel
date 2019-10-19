@@ -36,7 +36,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>@lang('ID')</label>
-                                            <input type="text" class="form-control" name="id" value="{{$product->id}}" required>
+                                            <input type="text" class="form-control" value="{{$product->id}}" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6">

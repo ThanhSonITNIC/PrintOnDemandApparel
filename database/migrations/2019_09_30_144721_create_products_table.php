@@ -26,6 +26,7 @@ class CreateProductsTable extends Migration
 			$table->string('sizes')->nullable();
 			$table->unsignedInteger('id_type');
 			$table->string('tags')->nullable();
+			$table->boolean('highlight')->default(false);
 			$table->timestamps();
 			
 			$table->foreign('id_type')->references('id')->on('product_types')->onUpdate('cascade')->onDelete('cascade');
