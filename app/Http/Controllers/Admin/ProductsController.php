@@ -75,6 +75,10 @@ class ProductsController extends Controller
     public function store(ProductCreateRequest $request)
     {
         try {
+            // update request
+            if($request->has('highlight')){
+                $request->request->add(['highlight' => true]);
+            }
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
