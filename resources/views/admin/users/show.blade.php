@@ -122,7 +122,7 @@
                 </div>
                 <div class="card-body collapse in">
                     <div class="card-block">
-                        <form class="form" method="POST" action="">
+                        <form class="form" method="POST" action="{{route('admin.users.password.update', $user->id)}}">
                             @csrf
                             @method('PUT')
                             <h4 class="form-section"><i class="icon-edit"></i> @lang('Change')</h4>

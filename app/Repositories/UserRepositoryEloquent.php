@@ -7,6 +7,7 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\UserRepository;
 use App\Entities\User;
 use App\Validators\UserValidator;
+use Hash;
 
 /**
  * Class UserRepositoryEloquent.
@@ -53,6 +54,31 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
+    }
+
+    /**
+     * Check same user password
+     * 
+     * @param $password want to check
+     * @param $id user
+     * 
+     * @return boolean
+     */
+    public function checkPassword($password, $id){
+        $userPassword = $this->find($id)->password;
+        return Hash::check($password, $userPassword);
+    }
+
+    /**
+     * Update user password
+     * 
+     * @param $password
+     * @param $id user
+     * 
+     * @return mixed
+     */
+    public function updatePassword($password, $id){
+        return $this->update(['password' => Hash::make($password)], $id);
     }
     
 }

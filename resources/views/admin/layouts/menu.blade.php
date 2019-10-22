@@ -21,8 +21,13 @@
             <li class=" nav-item"><a href="/admin/settings"><i class="icon-settings"></i><span data-i18n="nav.cards.main" class="menu-title">Settings</span></a>
                 <ul class="menu-content">
                     <li>
-                        <a data-i18n="nav.cards.card_actions" class="menu-item">Post Types</a>
-                        <a data-i18n="nav.cards.card_actions" class="menu-item">Product Types</a>
+                        <a href="{{route('admin.post-types.index')}}" data-i18n="nav.cards.card_actions" class="menu-item">Post Types</a>
+                    </li>
+                    <li>
+                        <a href="{{route('admin.product-types.index')}}" data-i18n="nav.cards.card_actions" class="menu-item">Product Types</a>
+                    </li>
+                    <li>
+                        <a href="{{route('admin.order-statuses.index')}}" data-i18n="nav.cards.card_actions" class="menu-item">Order Statuses</a>
                     </li>
                 </ul>
             </li>

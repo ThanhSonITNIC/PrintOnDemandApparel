@@ -31,12 +31,12 @@ class AccessLevels
         $this->productRepository = $productRepository;
         $this->postRepository = $postRepository;
 
-        $this->levelRepository->popCriteria(RequestCriteria::class);
-        $this->productTypeRepository->popCriteria(RequestCriteria::class);
-        $this->orderStatusRepository->popCriteria(RequestCriteria::class);
-        $this->postTypeRepository->popCriteria(RequestCriteria::class);
-        $this->productRepository->popCriteria(RequestCriteria::class);
-        $this->postRepository->popCriteria(RequestCriteria::class);
+        // $this->levelRepository->popCriteria(RequestCriteria::class);
+        // $this->productTypeRepository->popCriteria(RequestCriteria::class);
+        // $this->orderStatusRepository->popCriteria(RequestCriteria::class);
+        // $this->postTypeRepository->popCriteria(RequestCriteria::class);
+        // $this->productRepository->popCriteria(RequestCriteria::class);
+        // $this->postRepository->popCriteria(RequestCriteria::class);
     }
 
     /**
@@ -54,7 +54,7 @@ class AccessLevels
             }
         
             if(Auth::user()->isAdmin()){
-                View::share('levels', $this->levelRepository->all());
+                View::share('levels', $this->levelRepository->skipCriteria()->all());
             }
     
             if(Auth::user()->isCustomer()){
@@ -65,11 +65,11 @@ class AccessLevels
         }
 
         // all
-        View::share('productTypes', $this->productTypeRepository->all());
-        View::share('orderStatuses', $this->orderStatusRepository->all());
-        View::share('postTypes', $this->postTypeRepository->all());
-        View::share('topPosts', $this->postRepository->findByField('highlight', true));
-        View::share('topProducts', $this->productRepository->findByField('highlight', true));
+        View::share('productTypes', $this->productTypeRepository->skipCriteria()->all());
+        View::share('orderStatuses', $this->orderStatusRepository->skipCriteria()->all());
+        View::share('postTypes', $this->postTypeRepository->skipCriteria()->all());
+        View::share('topPosts', $this->postRepository->skipCriteria()->findByField('highlight', true));
+        View::share('topProducts', $this->productRepository->skipCriteria()->findByField('highlight', true));
 
         return $next($request);
     }

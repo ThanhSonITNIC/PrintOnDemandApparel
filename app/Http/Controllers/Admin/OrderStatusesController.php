@@ -50,16 +50,16 @@ class OrderStatusesController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $orderStatuses = $this->repository->all();
+        $statuses = $this->repository->all();
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $orderStatuses,
+                'data' => $statuses,
             ]);
         }
 
-        return view('orderStatuses.index', compact('orderStatuses'));
+        return view('admin.orders.setup', compact('statuses'));
     }
 
     /**

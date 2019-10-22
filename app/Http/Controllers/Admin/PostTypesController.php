@@ -50,16 +50,16 @@ class PostTypesController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $postTypes = $this->repository->all();
+        $types = $this->repository->all();
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $postTypes,
+                'data' => $types,
             ]);
         }
 
-        return view('postTypes.index', compact('postTypes'));
+        return view('admin.posts.setup', compact('types'));
     }
 
     /**

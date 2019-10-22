@@ -53,11 +53,18 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function(){
     Route::prefix('')->middleware(['auth', 'access.levels:1'])->group(function(){
         Route::get('', 'Dashboard@index');
 
+        Route::prefix('users/{id_user}/password')->name('users.password.')->group(function(){
+            Route::put('', 'Auth\PasswordController@update')->name('update');
+        });
+
         Route::resource('users', 'UsersController');
         Route::resource('products', 'ProductsController');
         Route::resource('orders', 'OrdersController');
         Route::resource('posts', 'PostsController');
         Route::resource('order-products', 'OrderProductsController');
+        Route::resource('product-types', 'ProductTypesController');
+        Route::resource('post-types', 'PostTypesController');
+        Route::resource('order-statuses', 'OrderStatusesController');
     });
 
 });

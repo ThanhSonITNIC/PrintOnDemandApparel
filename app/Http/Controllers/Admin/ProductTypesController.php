@@ -50,16 +50,16 @@ class ProductTypesController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $productTypes = $this->repository->all();
+        $types = $this->repository->all();
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $productTypes,
+                'data' => $types,
             ]);
         }
 
-        return view('productTypes.index', compact('productTypes'));
+        return view('admin.products.setup', compact('types'));
     }
 
     /**
