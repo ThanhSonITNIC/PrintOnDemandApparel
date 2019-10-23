@@ -31,7 +31,7 @@
             </div>
             <div class="col-xs-8">
                 <div class="caption product-detail">
-                    <h4 class="product-name"><a title="Casual Shirt With Ruffle Hem" href="#">{{$product->name}}</a></h4>
+                    <h4 class="product-name"><a title="Casual Shirt With Ruffle Hem" href="{{route('front.products.show', $product->id)}}">{{$product->name}}</a></h4>
                     <p class="price product-price"> <span class="price-new">{{$product->price}}</span></p>
                     <div class="addto-product"><a href="{{route('front.products.show', $product->id)}}">Detail</a></div>
                 </div>

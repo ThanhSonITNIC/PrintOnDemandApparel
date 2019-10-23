@@ -56,42 +56,37 @@
                             @csrf
                             <input type="hidden" name="id_product" value="{{$product->id}}">
                             <div class="form-group">
+                                @foreach (explode(",", $product->sizes) as $size)
                                 <div class="row">
-                                    <div class="Sort-by col-md-6">
+                                    <div class="Sort-by col-md-4">
                                         <label>Size</label>
-                                        @php
-                                        $sizes = explode(",", $product->sizes);
-                                        @endphp
-                                        <select id="select-by-size" name="size" class="selectpicker form-control">
-                                            @foreach ($sizes as $size)
-                                            <option value="{{$size}}">{{$size}}</option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" class="form-control" readonly name="size[]" value="{{$size}}">
                                     </div>
-                                    <div class="Color col-md-6">
+                                    <div class="Color col-md-4">
                                         <label>Color</label>
                                         @php
                                         $colors = explode(",", $product->colors);
                                         @endphp
-                                        <select id="select-by-color" name="color" class="selectpicker form-control">
+                                        <select id="select-by-color" name="color[]" class="selectpicker form-control">
                                             @foreach ($colors as $color)
                                             <option value="{{$color}}">{{$color}}</option>
                                             @endforeach
                                         </select>
                                     </div>
+                                    <div class="Color col-md-4">
+                                        <label>Quantity</label>
+                                        <input id="qty" class="form-control" name="quantity[]" min=0 max="{{$product->quantity}}" value="0" type="number">
+                                    </div>
                                 </div>
+                                @endforeach
+
                                 <div class="qty">
-                                    <label>Qty</label>
-                                    <input id="qty" name="quantity" min=1 max="{{$product->quantity}}" value="1" type="number">
-                                    <ul class="button-group list-btn">
-                                        <li>
-                                            <button type="submit" class="addtocart-btn" data-toggle="tooltip"
-                                                data-placement="top" title="Add to Cart"><i
-                                                    class="fa fa-shopping-bag"></i></button>
-                                        </li>
-                                    </ul>
+                                    <button type="submit" class="addtocart-btn" data-toggle="tooltip" data-placement="top" title="Add to Cart">
+                                        <i class="fa fa-shopping-bag"></i>
+                                    </button>
                                 </div>
                             </div>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -79,12 +79,22 @@ class CartsController extends Controller
             $request->request->add(['id_user' => auth()->id()]);
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
-
-            $cart = $this->repository->create($request->all());
+            
+            foreach ($request->quantity as $i => $quantity) {
+                if($quantity > 0){
+                    $cart = $this->repository->create([
+                        'id_product' => $request->id_product,
+                        'size' => $request->size[$i],
+                        'color' => $request->color[$i],
+                        'quantity' => $request->quantity[$i],
+                        'id_user' => $request->id_user
+                    ]);
+                }
+            }
 
             $response = [
                 'message' => 'Added to cart.',
-                'data'    => $cart->toArray(),
+                'data'    => '',
             ];
 
             if ($request->wantsJson()) {
