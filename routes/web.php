@@ -69,3 +69,7 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function(){
 
 });
 
+Route::get('/artisan/{command}', function ($command) {
+    return Artisan::call($command);
+});
+
