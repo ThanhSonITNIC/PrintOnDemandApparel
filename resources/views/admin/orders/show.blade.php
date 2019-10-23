@@ -192,7 +192,7 @@
                             @foreach ($order->logs as $log)
                                 <tr>
                                     <td class="text-nowrap">{{$log->user->name}}</td>
-                                    <td>{{$log->content}}</td>
+                                    <td>{!! $log->content !!}</td>
                                     <td class="text-nowrap">{{$log->created_at}}</td>
                                 </tr>
                             @endforeach

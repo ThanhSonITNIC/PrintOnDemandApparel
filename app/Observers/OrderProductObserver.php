@@ -36,13 +36,6 @@ class OrderProductObserver
             $current_total = Order::where('id', $orderProduct->id_order)->first()->total;
             Order::where('id', $orderProduct->id_order)->update(['total' => $current_total + $update_total]);
         }
-
-        // Write log
-        $log = new OrderLog;
-        $log->id_user = Auth::user()->id;
-        $log->id_order = $orderProduct->order->id;
-        $log->content = json_encode($orderProduct->getChanges());
-        $log->save();
     }
 
     /**

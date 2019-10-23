@@ -3,10 +3,10 @@
 namespace App\Observers;
 
 use App\Entities\Order;
-use App\Entities\OrderLog;
 use App\Entities\Cart;
 use App\Entities\OrderProduct;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\UpdateOrder as UpdateOrderNotification;
 
 class OrderObserver
 {
@@ -44,12 +44,7 @@ class OrderObserver
      */
     public function updated(Order $order)
     {
-        // Write log
-        $log = new OrderLog;
-        $log->id_user = Auth::user()->id;
-        $log->id_order = $order->id;
-        $log->content = json_encode($order->getChanges());
-        $log->save();
+        $order->customer->notify(new UpdateOrderNotification($order));
     }
 
     /**
